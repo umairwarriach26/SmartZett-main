@@ -5,6 +5,7 @@ import 'package:smartzett/ui/contact_page.dart';
 import 'package:smartzett/ui/mybookings_page.dart';
 import 'package:smartzett/ui/privacy_page.dart';
 import 'package:smartzett/ui/profile_page.dart';
+import 'package:smartzett/ui/terms_page.dart';
 import 'booking_page.dart';
 import 'menu_page.dart';
 import 'splash_page.dart';
@@ -67,6 +68,11 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: "/privacy",
             page: () => const PrivacyPage(),
+            transition: Transition.downToUp,
+            transitionDuration: const Duration(milliseconds: 350)),
+        GetPage(
+            name: "/terms",
+            page: () => const TermsPage(),
             transition: Transition.downToUp,
             transitionDuration: const Duration(milliseconds: 350)),
         GetPage(

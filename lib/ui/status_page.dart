@@ -53,12 +53,12 @@ class StatusPage extends StatelessWidget {
                     onPressed: () => Get.offAndToNamed("/home"),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.dashboard_customize_outlined,
+                    icon: const Icon(Icons.playlist_add_outlined,
                         color: Color(0xff808285)),
                     onPressed: () => Get.toNamed("/booking"),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.list_alt_rounded,
+                    icon: const Icon(Icons.mobile_friendly,
                         color: Color(0xff0d4e96)),
                     onPressed: () {},
                   ),

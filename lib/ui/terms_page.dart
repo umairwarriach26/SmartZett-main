@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PrivacyPage extends StatelessWidget {
-  const PrivacyPage({super.key});
+class TermsPage extends StatelessWidget {
+  const TermsPage({super.key});
   Future<bool> _onPop() async {
     return false;
   }
@@ -22,7 +22,7 @@ class PrivacyPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      "Privacy Policy",
+                      "Terms & Conditions",
                       textAlign: TextAlign.start,
                       style:
                           TextStyle(color: Color(0xff808285), fontSize: 25.0),

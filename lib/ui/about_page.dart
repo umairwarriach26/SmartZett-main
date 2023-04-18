@@ -27,10 +27,13 @@ class AboutPage extends StatelessWidget {
                       style:
                           TextStyle(color: Color(0xff808285), fontSize: 25.0),
                     ),
-                    IconButton(
-                        onPressed: () => Get.back(),
-                        icon: const Icon(Icons.cancel_outlined,
-                            color: Color(0xff0d4e96)))
+                    TextButton(
+                      child: const Text("< Back",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff0d4e96))),
+                      onPressed: () => Get.back(),
+                    )
                   ],
                 ),
               ),

@@ -55,7 +55,7 @@ class HomePage extends GetView<LocalStorageService> {
                         child: HomeTile(
                             title: "UAE TOURIST VISA",
                             icon: const Icon(
-                              Icons.dashboard_customize_rounded,
+                              Icons.playlist_add_outlined,
                               size: 60.0,
                               color: Colors.white,
                             ),
@@ -66,7 +66,7 @@ class HomePage extends GetView<LocalStorageService> {
                         child: HomeTile(
                             title: "VISA STATUS",
                             icon: const Icon(
-                              Icons.list_alt_rounded,
+                              Icons.mobile_friendly,
                               size: 60.0,
                               color: Colors.white,
                             ),
@@ -120,12 +120,12 @@ class HomePage extends GetView<LocalStorageService> {
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: const Icon(Icons.dashboard_customize_outlined,
+                    icon: const Icon(Icons.playlist_add_outlined,
                         color: Color(0xff808285)),
                     onPressed: () => Get.toNamed("/booking"),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.list_alt_rounded,
+                    icon: const Icon(Icons.mobile_friendly,
                         color: Color(0xff808285)),
                     onPressed: () => Get.offAndToNamed("/status"),
                   ),

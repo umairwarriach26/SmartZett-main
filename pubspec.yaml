@@ -41,7 +41,10 @@ dependencies:
   country_picker: ^2.0.20
   image_picker: ^0.8.7+2
   # stacked_card_carousel: ^0.0.4
-  shimmer: ^2.0.0
+  # shimmer: ^2.0.0
+  # eva_icons_flutter: ^3.1.0
+  font_awesome_flutter: ^10.4.0
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:

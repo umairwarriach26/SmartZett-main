@@ -77,7 +77,7 @@ class ImageMenu extends StatelessWidget {
         controller.setPassport(base64Image);
       }
     } on PlatformException catch (e) {
-      Get.snackbar("Error", "$e");
+      Get.snackbar("Error", "${e.message}");
     } catch (e) {
       Get.snackbar("Error", "$e");
     }
