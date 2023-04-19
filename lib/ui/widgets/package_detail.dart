@@ -66,9 +66,9 @@ class PackageDetail extends GetView<BookingController> {
                             CheckboxListTile(
                               title: const Text("30 Days",
                                   style: TextStyle(fontSize: 16.0)),
-                              value: controller.packageDuration == "30 Days",
+                              value: controller.packageDuration == "1",
                               onChanged: (bool? value) {
-                                controller.setPackageDuration("30 Days");
+                                controller.setPackageDuration("1");
                                 controller.getUpdatedPrice();
                               },
                             ),

@@ -10,7 +10,7 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
   var booking = BookingModel(
           package: "1",
           ageGroup: "1",
-          packageDuration: "30 Days",
+          packageDuration: "1",
           processDuration: "1")
       .obs;
 
@@ -84,7 +84,7 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
 
   get dob => booking.value.dob ?? "";
 
-  get passportNO => booking.value.passportNo ?? "";
+  get passportNo => booking.value.passportNo ?? "";
 
   get phoneNo => booking.value.phoneNo ?? "";
   get email => booking.value.email ?? "";
@@ -98,23 +98,23 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
       var data = {
         "visa_type_id": package,
         "visa_package_duration": packageDuration,
-        //"visa_processing_duration": processDuration
+        "visa_processing_duration": processDuration,
         "age_group": ageGroup
       };
 
       var response = await ApiProvider().postRequest(
           data, "visa_fee_calculation_api", prefrences.user!.token);
 
-      //  if (response) {
-      // Set state to success
-      change(PriceModel.fromJson(response), status: RxStatus.success());
-      // Get.snackbar("Success", "${response["message"]}");
-      goToForm(2);
-      // } else {
-      //   // Set state to error
-      //   change(null, status: RxStatus.error(("${response["message"]}")));
-      //   Get.snackbar("Error", "${response["message"]}");
-      // }
+      if (response["status"] == true) {
+        // Set state to success
+        change(PriceModel.fromJson(response), status: RxStatus.success());
+        Get.snackbar("Success", "${response["message"]}");
+        goToForm(2);
+      } else {
+        // Set state to error
+        change(null, status: RxStatus.error(("${response["message"]}")));
+        Get.snackbar("Error", "${response["message"]}");
+      }
     } catch (error) {
       // Set state to error
       change(null, status: RxStatus.error("$error"));
@@ -136,7 +136,7 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
         "processing_fee_vat": "5",
         "full_english_name": fullName,
         "date_of_birth": dob,
-        "passport_number": passportNO,
+        "passport_number": passportNo,
         "outside_uae_phone": phoneNo,
         "outside_uae_country_code": countryCode,
         "email": email,
