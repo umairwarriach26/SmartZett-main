@@ -41,6 +41,7 @@ dependencies:
   get: ^4.6.5
   http: ^0.13.5
   shared_preferences: ^2.1.0
+  intl: ^0.18.1
   country_picker: ^2.0.20
   image_picker: ^0.8.7+2
   # stacked_card_carousel: ^0.0.4

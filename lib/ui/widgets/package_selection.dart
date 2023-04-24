@@ -29,25 +29,30 @@ class PackageSelection extends GetView<BookingController> {
               CheckboxListTile(
                 title: const Text("Single Entry",
                     style: TextStyle(fontSize: 16.0)),
-                value: controller.package == "1",
+                value: controller.package == "single",
                 onChanged: (bool? value) {
-                  controller.setPackage("1");
-                  controller.getUpdatedPrice();
+                  controller.setPackage("single");
+                  //controller.getUpdatedPrice();
                   //controller.currentStep(2);
                 },
               ),
               CheckboxListTile(
                 title:
                     const Text("Multi Entry", style: TextStyle(fontSize: 16.0)),
-                value: controller.package == "2",
+                value: controller.package == "multi",
                 onChanged: (bool? value) {
-                  controller.setPackage("2");
-                  controller.getUpdatedPrice();
+                  controller.setPackage("multi");
                   //controller.currentStep(2);
                 },
               ),
             ],
           ),
+        ),
+        SizedBox(
+          height: 50.0,
+          child: ElevatedButton(
+              onPressed: () => controller.getUpdatedPrice(),
+              child: const Text("Continue")),
         )
       ],
     );

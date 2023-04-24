@@ -88,7 +88,7 @@ class HomePage extends GetView<LocalStorageService> {
                               color: Colors.white,
                             ),
                             image: "assets/images/bookingsbg.jpg",
-                            onTap: () {}),
+                            onTap: () => Get.toNamed("/mybookings")),
                       ),
                       Expanded(
                         child: HomeTile(

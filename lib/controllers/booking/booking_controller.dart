@@ -6,16 +6,14 @@ import '../../services/local_storage.dart';
 
 class BookingController extends GetxController with StateMixin<PriceModel> {
   final prefrences = Get.find<LocalStorageService>();
-
   var booking = BookingModel(
-          package: "1",
-          ageGroup: "1",
-          packageDuration: "1",
-          processDuration: "1")
-      .obs;
+    package: "single",
+    packageDuration: "1",
+    processDuration: "regular",
+    ageGroup: "adult",
+  ).obs;
 
   var currentStep = 0.obs;
-  var subStep = 0.obs;
 
   @override
   void onInit() {
@@ -70,11 +68,20 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
 
   get package => booking.value.package ?? "";
 
+  get packageCapital => booking.value.package!.toUpperCase();
+
   get packageDuration => booking.value.packageDuration ?? "";
+
+  get packageDurationCoverted =>
+      booking.value.packageDuration == "1" ? "30 Days" : "60 Days";
 
   get processDuration => booking.value.processDuration ?? "";
 
+  get processDurationCapital => booking.value.processDuration!.toUpperCase();
+
   get ageGroup => booking.value.ageGroup ?? "";
+
+  get ageGroupCapial => booking.value.ageGroup!.toUpperCase();
 
   get profileImage => booking.value.profiePhoto ?? "";
 
@@ -96,8 +103,8 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
       // Set state to loading
       change(null, status: RxStatus.loading());
       var data = {
-        "visa_type_id": package,
-        "visa_package_duration": packageDuration,
+        "entry_type": package,
+        "visa_type_id": packageDuration,
         "visa_processing_duration": processDuration,
         "age_group": ageGroup
       };
@@ -107,8 +114,9 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
 
       if (response["status"] == true) {
         // Set state to success
-        change(PriceModel.fromJson(response), status: RxStatus.success());
-        Get.snackbar("Success", "${response["message"]}");
+        change(PriceModel.fromJson(response["data"]),
+            status: RxStatus.success());
+        // Get.snackbar("Success", "${response["message"]}");
         goToForm(2);
       } else {
         // Set state to error
@@ -127,8 +135,8 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
       // Set state to loading
       change(null, status: RxStatus.loading());
       var data = {
-        "visa_type_id": package,
-        "visa_package_duration": packageDuration,
+        "entry_type": package,
+        "visa_type_id": packageDuration,
         "visa_processing_duration": processDuration,
         "age_group": ageGroup,
         "visa_fee": "100",
@@ -145,6 +153,8 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
         "passport_image": "data:image/png;base64,$passportImage"
       };
 
+      // print(data);
+
       var response = await ApiProvider()
           .postRequest(data, "visa_apply_api", prefrences.user!.token);
 
@@ -153,7 +163,8 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
 
         change(null, status: RxStatus.success());
         Get.snackbar("Success", "${response["message"]}");
-        Get.offAndToNamed("/mybookings");
+        // Get.offAndToNamed("/mybookings");
+        goToForm(5);
       } else {
         // Set state to error
         change(null, status: RxStatus.error(("${response["message"]}")));

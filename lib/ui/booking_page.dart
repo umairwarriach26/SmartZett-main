@@ -5,8 +5,11 @@ import 'package:smartzett/ui/widgets/package_detail.dart';
 import 'package:smartzett/ui/widgets/package_selection.dart';
 import 'package:smartzett/ui/widgets/user_detail.dart';
 import '../controllers/booking/booking_controller.dart';
+import 'widgets/documnet_upload.dart';
 import 'widgets/error_widget.dart';
 import 'widgets/nationality_selection.dart';
+import 'widgets/payment_form.dart';
+import 'widgets/review_form.dart';
 
 class BookingPage extends GetView<BookingController> {
   const BookingPage({super.key});
@@ -62,7 +65,13 @@ class BookingPage extends GetView<BookingController> {
                             case 2:
                               return PackageDetail(model: state!);
                             case 3:
-                              return const UserDetail();
+                              return const DocumnetUploadForm();
+                            case 4:
+                              return UserDetailForm();
+                            case 5:
+                              return const ReviewForm();
+                            case 6:
+                              return const PaymentForm();
                             default:
                               return Container();
                           }

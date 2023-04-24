@@ -1,85 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../controllers/booking/booking_controller.dart';
+import 'package:smartzett/controllers/booking/booking_controller.dart';
 
-// class UserDetail extends GetView<BookingController> {
-//   const UserDetail({super.key});
-
-//   List<Step> getSteps() {
-//     return <Step>[
-//       Step(
-//           state: controller.subStep.value > 0
-//               ? StepState.complete
-//               : StepState.indexed,
-//           isActive: controller.subStep.value >= 0,
-//           title: const Text("Document Upload"),
-//           content: DocumnetForm()),
-//       Step(
-//           state: controller.subStep.value > 1
-//               ? StepState.complete
-//               : StepState.indexed,
-//           isActive: controller.subStep.value >= 1,
-//           title: const Text('Personal Detail'),
-//           content: UserDetailForm()),
-//       Step(
-//           state: controller.subStep.value > 2
-//               ? StepState.complete
-//               : StepState.indexed,
-//           isActive: controller.subStep.value >= 2,
-//           title: const Text('Review'),
-//           content: const Center(
-//             child: Text('Confirm'),
-//           )),
-//       Step(
-//           state: controller.subStep.value > 3
-//               ? StepState.complete
-//               : StepState.indexed,
-//           isActive: controller.subStep.value >= 3,
-//           title: const Text('Payment'),
-//           content: const PaymentForm())
-//     ];
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView(
-//       children: [
-//         Obx(() => Stepper(
-//               currentStep: controller.subStep.value,
-//               type: StepperType.vertical,
-//               physics: const ClampingScrollPhysics(),
-//               onStepTapped: (step) {},
-//               onStepContinue: () {
-//                 bool isLastStep =
-//                     (controller.subStep.value == getSteps().length - 1);
-//                 if (isLastStep) {
-//                 } else {
-//                   controller.subStep.value += 1;
-//                 }
-//               },
-//               onStepCancel: () => controller.subStep.value == 0
-//                   ? null
-//                   : controller.subStep.value -= 1,
-//               steps: getSteps(),
-//             )),
-//       ],
-//     );
-//   }
-// }
-
-class UserDetailForm extends GetView<BookingController> {
-  UserDetailForm({super.key});
-
+class EditVisaForm extends GetView<BookingController> {
+  EditVisaForm({super.key});
   final _formKey = GlobalKey<FormState>();
   final _fullName = TextEditingController();
   final _dob = TextEditingController();
   final _passportNo = TextEditingController();
   final _email = TextEditingController();
   final _phone = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    _setFormValues();
     return Form(
       key: _formKey,
       autovalidateMode: AutovalidateMode.always,
@@ -87,7 +21,7 @@ class UserDetailForm extends GetView<BookingController> {
         padding: const EdgeInsets.all(10.0),
         children: [
           const Text(
-            "Please fill in the following personal details.",
+            "Edit Information",
             textAlign: TextAlign.start,
             style: TextStyle(fontSize: 14.0),
           ),
@@ -186,6 +120,28 @@ class UserDetailForm extends GetView<BookingController> {
             },
           ),
           const SizedBox(height: 8.0),
+          TextFormField(
+            controller: _dob,
+            keyboardType: TextInputType.datetime,
+            textInputAction: TextInputAction.next,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Date of Birth*",
+            ),
+            readOnly: true,
+            showCursor: false,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Select Date Of Birth';
+              }
+              return null;
+            },
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+              _chooseDate();
+            },
+          ),
+          const SizedBox(height: 8.0),
           SizedBox(
             height: 50.0,
             child: ElevatedButton(
@@ -205,15 +161,6 @@ class UserDetailForm extends GetView<BookingController> {
         ],
       ),
     );
-  }
-
-  _setFormValues() {
-    _fullName.text = controller.fullName;
-    _email.text = controller.email;
-    _dob.text = controller.dob;
-    _passportNo.text = controller.passportNo;
-    _email.text = controller.email;
-    _phone.text = controller.phoneNo;
   }
 
   _chooseDate() async {
@@ -237,12 +184,4 @@ class UserDetailForm extends GetView<BookingController> {
       _dob.text = DateFormat("yyyy-MM-dd").format(pickedDate).toString();
     }
   }
-
-  // bool disableDate(DateTime day) {
-  //   if ((day.isAfter(DateTime.now().subtract(const Duration(days: 1))) &&
-  //       day.isBefore(DateTime.now().add(const Duration(days: 5))))) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
 }
