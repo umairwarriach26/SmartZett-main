@@ -48,12 +48,12 @@ class MyApp extends StatelessWidget {
             transitionDuration: const Duration(milliseconds: 350)),
         GetPage(
             name: "/menu",
-            page: () => const MenuPage(),
+            page: () => MenuPage(),
             transition: Transition.downToUp,
             transitionDuration: const Duration(milliseconds: 350)),
         GetPage(
             name: "/profile",
-            page: () => const ProfilePage(),
+            page: () => ProfilePage(),
             transition: Transition.downToUp,
             transitionDuration: const Duration(milliseconds: 350)),
         GetPage(
@@ -81,7 +81,6 @@ class MyApp extends StatelessWidget {
           page: () => const StatusPage(),
           transition: Transition.rightToLeft,
           transitionDuration: const Duration(milliseconds: 350),
-          binding: StatusBinding(),
         ),
         GetPage(
           name: "/booking",
@@ -95,7 +94,7 @@ class MyApp extends StatelessWidget {
           page: () => const MyBookindsPage(),
           transition: Transition.fadeIn,
           transitionDuration: const Duration(milliseconds: 350),
-          binding: BookingBinding(),
+          binding: StatusBinding(),
         ),
       ],
     );

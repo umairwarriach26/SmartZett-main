@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartzett/controllers/status/status_controller.dart';
-import 'package:smartzett/ui/widgets/error_widget.dart';
-import 'package:smartzett/ui/widgets/loading_widget.dart';
-import 'package:ticket_widget/ticket_widget.dart';
 
 class StatusPage extends GetView<StatusController> {
   const StatusPage({super.key});
@@ -17,52 +14,26 @@ class StatusPage extends GetView<StatusController> {
     return WillPopScope(
       onWillPop: _onPop,
       child: Scaffold(
-        backgroundColor: Colors.grey,
         body: SafeArea(
-          child: controller.obx(
-              (state) => Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          color: Colors.white,
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: const [
-                              Text(
-                                "Visa Status",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    color: Color(0xff808285), fontSize: 25.0),
-                              ),
-                              SizedBox(height: 30)
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                              itemCount: state!.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return TicketWidget(
-                                    width: 350,
-                                    height: 300,
-                                    isCornerRounded: true,
-                                    padding: const EdgeInsets.fromLTRB(
-                                        20.0, 30.0, 20.0, 30.0),
-                                    margin: const EdgeInsets.all(4.0),
-                                    child: Column(
-                                      children: [Row()],
-                                    ));
-                              }),
-                        )
-                      ]),
-              onLoading: const LoadingWidget(message: "Loading..."), // optional
-              onError: (error) => ErrorView(
-                  errorMessage: "$error",
-                  onPressed: () => controller.refreshView())),
-        ),
+            child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Text(
+                    "Visa Status",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(color: Color(0xff808285), fontSize: 25.0),
+                  ),
+                  SizedBox(height: 30)
+                ],
+              ),
+            ),
+          ],
+        )),
         bottomNavigationBar: BottomAppBar(
             shape: const CircularNotchedRectangle(),
             child: Container(
@@ -98,119 +69,3 @@ class StatusPage extends GetView<StatusController> {
     );
   }
 }
-
-
-
-//  Expanded(
-//                                             child: Column(
-//                                           mainAxisAlignment:
-//                                               MainAxisAlignment.start,
-//                                           crossAxisAlignment:
-//                                               CrossAxisAlignment.stretch,
-//                                           children: [
-//                                             const Text(
-//                                               "Refrence #",
-//                                               style: TextStyle(
-//                                                   fontWeight: FontWeight.bold,
-//                                                   fontSize: 20.0,
-//                                                   color: Colors.red),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                             Text(
-//                                               "${state[index].referenceName}",
-//                                               style: const TextStyle(
-//                                                   fontSize: 18.0,
-//                                                   color: Colors.black),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                             const SizedBox(height: 10.0),
-//                                             const Text(
-//                                               "Visa Applicant",
-//                                               style: TextStyle(
-//                                                   fontWeight: FontWeight.bold,
-//                                                   fontSize: 20.0,
-//                                                   color: Colors.red),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                             Text(
-//                                               "${state[index].fullEnglishName}",
-//                                               style: const TextStyle(
-//                                                   fontSize: 18.0,
-//                                                   color: Colors.black),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                             const SizedBox(height: 10.0),
-//                                             const Text(
-//                                               "Phone #",
-//                                               style: TextStyle(
-//                                                   fontWeight: FontWeight.bold,
-//                                                   fontSize: 20.0,
-//                                                   color: Colors.red),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                             Text(
-//                                               "${state[index].outsideUaeResidenceCountryTelephone}",
-//                                               style: const TextStyle(
-//                                                   fontSize: 18.0,
-//                                                   color: Colors.black),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                           ],
-//                                         )),
-//                                         const SizedBox(width: 12.0),
-//                                         Expanded(
-//                                             child: Column(
-//                                           mainAxisAlignment:
-//                                               MainAxisAlignment.start,
-//                                           crossAxisAlignment:
-//                                               CrossAxisAlignment.stretch,
-//                                           children: [
-//                                             const Text(
-//                                               "Status",
-//                                               style: TextStyle(
-//                                                   fontWeight: FontWeight.bold,
-//                                                   fontSize: 18.0,
-//                                                   color: Colors.red),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                             Text(
-//                                               "${state[index].visaStatusName}",
-//                                               style: const TextStyle(
-//                                                   fontSize: 16.0,
-//                                                   color: Colors.black),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                             const SizedBox(height: 10.0),
-//                                             const Text(
-//                                               "Type",
-//                                               style: TextStyle(
-//                                                   fontWeight: FontWeight.bold,
-//                                                   fontSize: 18.0,
-//                                                   color: Colors.red),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                             Text(
-//                                               "30 Days ${state[index].visaTypeId == "1" ? "Single Entry" : "Multi Entry"}",
-//                                               style: const TextStyle(
-//                                                   fontSize: 16.0,
-//                                                   color: Colors.black),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                             const SizedBox(height: 10.0),
-//                                             const Text(
-//                                               "Date Of Birth",
-//                                               style: TextStyle(
-//                                                   fontWeight: FontWeight.bold,
-//                                                   fontSize: 18.0,
-//                                                   color: Colors.red),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                             Text(
-//                                               "${state[index].dateOfBirth}",
-//                                               style: const TextStyle(
-//                                                   fontSize: 16.0,
-//                                                   color: Colors.black),
-//                                               textAlign: TextAlign.start,
-//                                             ),
-//                                           ],
-//                                         )),

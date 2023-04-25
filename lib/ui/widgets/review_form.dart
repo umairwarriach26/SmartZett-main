@@ -135,6 +135,11 @@ class ReviewForm extends GetView<BookingController> {
                     style: TextStyle(color: Color(0xff0d4e96))),
                 subtitle: Text("${controller.passportNo}"),
               ),
+              ListTile(
+                title: const Text("Passport Expiry",
+                    style: TextStyle(color: Color(0xff0d4e96))),
+                subtitle: Text("${controller.passportExpiry}"),
+              ),
             ],
           ),
         ),
@@ -157,7 +162,7 @@ class ReviewForm extends GetView<BookingController> {
                           },
                         ),
                         TextButton(
-                          child: const Text("Submit"),
+                          child: const Text("Confirm"),
                           onPressed: () {
                             Get.back();
                             controller.bookVisa();
@@ -167,7 +172,7 @@ class ReviewForm extends GetView<BookingController> {
                     ),
                     barrierDismissible: false,
                   ),
-              child: const Text("Submit")),
+              child: const Text("Continue To Pay")),
         )
       ],
     );

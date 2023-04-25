@@ -16,14 +16,23 @@ class AppTheme {
       brightness: Brightness.light,
       textTheme: lightTextTheme,
       elevatedButtonTheme: lightButtonTheme,
+      inputDecorationTheme: lightTextFieldTheme,
       fontFamily: 'poppins');
 
   static final ElevatedButtonThemeData lightButtonTheme =
       ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               backgroundColor: primary,
+              textStyle: TextStyle(fontWeight: FontWeight.bold, color: white),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0))));
+
+  static final InputDecorationTheme lightTextFieldTheme = InputDecorationTheme(
+    filled: true,
+    fillColor: white,
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+  );
 
   static const TextTheme lightTextTheme = TextTheme(
     titleLarge: _titleLight,

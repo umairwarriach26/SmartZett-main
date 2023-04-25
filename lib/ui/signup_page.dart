@@ -45,7 +45,6 @@ class SignupPage extends GetView<AuthController> {
                             textCapitalization: TextCapitalization.words,
                             keyboardType: TextInputType.text,
                             decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 labelText: "First Name",
                                 hintText: "Enter First Name"),
                             validator: (value) {
@@ -62,7 +61,6 @@ class SignupPage extends GetView<AuthController> {
                             textCapitalization: TextCapitalization.words,
                             keyboardType: TextInputType.text,
                             decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 labelText: "Last Name",
                                 hintText: "Enter Last Name"),
                             validator: (value) {
@@ -78,9 +76,7 @@ class SignupPage extends GetView<AuthController> {
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Email",
-                                hintText: "Enter Email"),
+                                labelText: "Email", hintText: "Enter Email"),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Enter email";
@@ -96,7 +92,6 @@ class SignupPage extends GetView<AuthController> {
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.phone,
                             decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 labelText: "Phone No",
                                 hintText: "+971 12345678"),
                             validator: (value) {
@@ -115,7 +110,6 @@ class SignupPage extends GetView<AuthController> {
                             keyboardType: TextInputType.text,
                             obscureText: true,
                             decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 labelText: "Password",
                                 hintText: "Enter Password"),
                             validator: (value) {
@@ -132,7 +126,6 @@ class SignupPage extends GetView<AuthController> {
                             keyboardType: TextInputType.text,
                             obscureText: true,
                             decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 labelText: "Confirm Password",
                                 hintText: "Enter Confirm Password"),
                             validator: (value) {

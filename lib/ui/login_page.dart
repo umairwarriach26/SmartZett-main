@@ -35,15 +35,13 @@ class LoginPage extends GetView<AuthController> {
                             "assets/images/logo.png",
                             scale: 3,
                           ),
-                          const SizedBox(height: 50.0),
+                          const SizedBox(height: 35.0),
                           TextFormField(
                             controller: _emailController,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Email",
-                                hintText: 'Enter Email'),
+                                labelText: "Email", hintText: 'Enter Email'),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Enter email';
@@ -60,7 +58,6 @@ class LoginPage extends GetView<AuthController> {
                             keyboardType: TextInputType.text,
                             obscureText: true,
                             decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 labelText: "Password",
                                 hintText: 'Enter Password'),
                             validator: (value) {

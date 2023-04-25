@@ -51,6 +51,9 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
   void setPassportNo(String value) =>
       booking.update((val) => val!.passportNo = value);
 
+  void setPassportExpiry(String value) =>
+      booking.update((val) => val!.passportExpiry = value);
+
   void setEmail(String value) => booking.update((val) => val!.email = value);
 
   void setPhoneNo(String value) =>
@@ -92,6 +95,8 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
   get dob => booking.value.dob ?? "";
 
   get passportNo => booking.value.passportNo ?? "";
+
+  get passportExpiry => booking.value.passportExpiry ?? "";
 
   get phoneNo => booking.value.phoneNo ?? "";
   get email => booking.value.email ?? "";
@@ -164,7 +169,7 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
         change(null, status: RxStatus.success());
         Get.snackbar("Success", "${response["message"]}");
         // Get.offAndToNamed("/mybookings");
-        goToForm(5);
+        goToForm(6);
       } else {
         // Set state to error
         change(null, status: RxStatus.error(("${response["message"]}")));

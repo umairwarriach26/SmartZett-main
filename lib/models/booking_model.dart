@@ -8,6 +8,7 @@ class BookingModel {
   String? fullName;
   String? dob;
   String? passportNo;
+  String? passportExpiry;
   String? email;
   String? phoneNo;
   String? profiePhoto;
@@ -26,6 +27,7 @@ class BookingModel {
       this.fullName,
       this.dob,
       this.passportNo,
+      this.passportExpiry,
       this.email,
       this.phoneNo,
       this.profiePhoto,

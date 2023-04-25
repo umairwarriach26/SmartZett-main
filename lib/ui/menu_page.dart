@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -7,10 +6,57 @@ import '../services/local_storage.dart';
 import 'widgets/loading_dialog.dart';
 
 class MenuPage extends GetView<LocalStorageService> {
-  const MenuPage({super.key});
+  MenuPage({super.key});
   Future<bool> _onPop() async {
     return false;
   }
+
+  // final appId = Platform.isAndroid ? "com.smarttravel.app" : "";
+  // final url = Uri.parse(Platform.isAndroid ?
+  //   "market://details?id=com.smarttravel.app":
+  //   //"https://apps.apple.com/app/id$appId",
+  // );
+
+  final List<MenuItem> _menuItems = [
+    MenuItem(
+        title: "Profile",
+        icon: Icons.person_2,
+        onTap: () => Get.toNamed("/profile")),
+    MenuItem(
+        title: "About Us",
+        icon: Icons.info_rounded,
+        onTap: () => Get.toNamed("/about")),
+    MenuItem(
+        title: "Contact Us",
+        icon: Icons.contact_emergency,
+        onTap: () => Get.toNamed("/contact")),
+    MenuItem(
+        title: "Terms & Conditions",
+        icon: Icons.list_rounded,
+        onTap: () => Get.toNamed("/terms")),
+    MenuItem(
+        title: "Privacy Policy",
+        icon: Icons.privacy_tip,
+        onTap: () => Get.toNamed("/privacy")),
+    MenuItem(
+        icon: Icons.star,
+        title: "Rate Our App",
+        onTap: () => launchUrl(
+              Uri.parse("market://details?id=com.smarttravel.app"),
+              mode: LaunchMode.externalApplication,
+            )),
+    MenuItem(
+        icon: Icons.share,
+        title: "Share Our App",
+        onTap: () => launchUrl(
+              Uri.parse("market://details?id=com.smarttravel.app"),
+              mode: LaunchMode.externalApplication,
+            )),
+    MenuItem(
+      icon: Icons.code,
+      title: "App Version(1.0.0)",
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +64,13 @@ class MenuPage extends GetView<LocalStorageService> {
       body: SafeArea(
         child: WillPopScope(
           onWillPop: _onPop,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -38,104 +86,20 @@ class MenuPage extends GetView<LocalStorageService> {
                             color: Color(0xff0d4e96)))
                   ],
                 ),
-              ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    ListTile(
-                      leading: const Icon(
-                        Icons.person_2,
-                        color: Color(0xff0d4e96),
-                      ),
-                      title: const Text(
-                        "Profile",
-                        style: TextStyle(color: Color(0xff0d4e96)),
-                      ),
-                      onTap: () => Get.toNamed("/profile"),
-                    ),
-                    const Divider(thickness: 0.5),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.info,
-                        color: Color(0xff0d4e96),
-                      ),
-                      title: const Text(
-                        "About Us",
-                        style: TextStyle(color: Color(0xff0d4e96)),
-                      ),
-                      onTap: () => Get.toNamed("/about"),
-                    ),
-                    const Divider(thickness: 0.5),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.contact_emergency,
-                        color: Color(0xff0d4e96),
-                      ),
-                      title: const Text(
-                        "Contact Us",
-                        style: TextStyle(color: Color(0xff0d4e96)),
-                      ),
-                      onTap: () => Get.toNamed("/contact"),
-                    ),
-                    const Divider(thickness: 0.5),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.list_rounded,
-                        color: Color(0xff0d4e96),
-                      ),
-                      title: const Text(
-                        "Terms & Conditions",
-                        style: TextStyle(color: Color(0xff0d4e96)),
-                      ),
-                      onTap: () => Get.toNamed("/terms"),
-                    ),
-                    const Divider(thickness: 0.5),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.privacy_tip,
-                        color: Color(0xff0d4e96),
-                      ),
-                      title: const Text(
-                        "Privacy Policy",
-                        style: TextStyle(color: Color(0xff0d4e96)),
-                      ),
-                      onTap: () => Get.toNamed("/privacy"),
-                    ),
-                    const Divider(thickness: 0.5),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.star_rate,
-                        color: Color(0xff0d4e96),
-                      ),
-                      title: const Text(
-                        "Rate Our App",
-                        style: TextStyle(color: Color(0xff0d4e96)),
-                      ),
-                      onTap: () => _rateShareApp(),
-                    ),
-                    const Divider(thickness: 0.5),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.share,
-                        color: Color(0xff0d4e96),
-                      ),
-                      title: const Text(
-                        "Share Our App",
-                        style: TextStyle(color: Color(0xff0d4e96)),
-                      ),
-                      onTap: () => _rateShareApp(),
-                    ),
-                    const Divider(thickness: 0.5),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.logout_sharp,
-                        color: Color(0xff0d4e96),
-                      ),
-                      title: const Text(
-                        "Logout",
-                        style: TextStyle(color: Color(0xff0d4e96)),
-                      ),
-                      onTap: () async {
+                Expanded(
+                    child: ListView.separated(
+                        itemCount: _menuItems.length,
+                        separatorBuilder: (_, index) => const Divider(),
+                        itemBuilder: (_, index) {
+                          return MenuTile(
+                              icon: _menuItems[index].icon,
+                              title: _menuItems[index].title,
+                              onTap: _menuItems[index].onTap);
+                        })),
+                SizedBox(
+                  height: 50.0,
+                  child: ElevatedButton(
+                      onPressed: () async {
                         Get.dialog(
                             const LoadingDialog(message: "Logging Out..."));
                         controller.user = null;
@@ -143,37 +107,40 @@ class MenuPage extends GetView<LocalStorageService> {
                           Get.offAllNamed("/login");
                         });
                       },
-                    ),
-                    const Divider(thickness: 0.5),
-                    const ListTile(
-                      title: Text(
-                        "App Version 1.0.0",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Color(0xffed1c24)),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+                      child: const Text("Log Out")),
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+}
 
-  Future<void> _rateShareApp() async {
-    if (Platform.isAndroid || Platform.isIOS) {
-      final appId = Platform.isAndroid ? "com.smarttravel.app" : "";
-      final url = Uri.parse(
-        Platform.isAndroid
-            ? "market://details?id=$appId"
-            : "https://apps.apple.com/app/id$appId",
-      );
-      await launchUrl(
-        url,
-        mode: LaunchMode.externalApplication,
-      );
-    }
+class MenuTile extends StatelessWidget {
+  const MenuTile({super.key, required this.title, this.icon, this.onTap});
+  final String title;
+  final IconData? icon;
+  final VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+        leading: Icon(
+          icon,
+          color: const Color(0xff0d4e96),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(color: Color(0xff0d4e96)),
+        ),
+        onTap: onTap);
   }
+}
+
+class MenuItem {
+  MenuItem({required this.title, required this.icon, this.onTap});
+  String title;
+  IconData icon;
+  VoidCallback? onTap;
 }
