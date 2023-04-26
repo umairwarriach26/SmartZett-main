@@ -63,7 +63,7 @@ class BookingPage extends GetView<BookingController> {
                             case 1:
                               return const PackageSelection();
                             case 2:
-                              return PackageDetail(model: state!);
+                              return const PackageDetail();
                             case 3:
                               return const DocumnetUploadForm();
                             case 4:

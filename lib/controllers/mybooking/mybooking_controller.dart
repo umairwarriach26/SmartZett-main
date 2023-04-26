@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import '../../config/network/api_provider.dart';
-import '../../models/status_model.dart';
+import '../../models/mybooking_model.dart';
 import '../../services/local_storage.dart';
 
-class StatusController extends GetxController
-    with StateMixin<List<StatusModel>> {
+class MyBookingController extends GetxController
+    with StateMixin<List<MyBookingModel>> {
   final prefrences = Get.find<LocalStorageService>();
 
   @override
@@ -33,8 +33,8 @@ class StatusController extends GetxController
       if (response["status"] == true) {
         // Set state to success
         var body = response["data"] as List;
-        List<StatusModel> list =
-            body.map((tagJson) => StatusModel.fromJson(tagJson)).toList();
+        List<MyBookingModel> list =
+            body.map((tagJson) => MyBookingModel.fromJson(tagJson)).toList();
 
         change(list, status: RxStatus.success());
         // Get.snackbar("Success", "${response["message"]}");

@@ -1,4 +1,6 @@
-class StatusModel {
+import 'package:get/get.dart';
+
+class MyBookingModel {
   String? id;
   String? referenceNo;
   String? referenceName;
@@ -18,8 +20,11 @@ class StatusModel {
   String? passportImage;
   String? profileImage;
   String? visaStatusName;
-
-  StatusModel(
+  String? entryType;
+  String? ageGroup;
+  String? processingType;
+  String? passportExpiryDate;
+  MyBookingModel(
       {this.id,
       this.referenceNo,
       this.referenceName,
@@ -38,9 +43,13 @@ class StatusModel {
       this.visaStatusId,
       this.passportImage,
       this.profileImage,
-      this.visaStatusName});
+      this.visaStatusName,
+      this.entryType,
+      this.ageGroup,
+      this.processingType,
+      this.passportExpiryDate});
 
-  StatusModel.fromJson(Map<String, dynamic> json) {
+  MyBookingModel.fromJson(Map<String, dynamic> json) {
     if (json["id"] is String) {
       id = json["id"];
     }
@@ -101,6 +110,18 @@ class StatusModel {
     if (json["visa_status_name"] is String) {
       visaStatusName = json["visa_status_name"];
     }
+    if (json["entry_type"] is String) {
+      entryType = json["entry_type"].toString().capitalizeFirst;
+    }
+    if (json["age_group"] is String) {
+      ageGroup = json["age_group"].toString().capitalizeFirst;
+    }
+    if (json["processing_type"] is String) {
+      processingType = json["processing_type"].toString().capitalizeFirst;
+    }
+    if (json["passport_expiry_date"] is String) {
+      passportExpiryDate = json["passport_expiry_date"] ?? "";
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -122,6 +143,10 @@ class StatusModel {
     data["passport_image"] = passportImage;
     data["profile_image"] = profileImage;
     data["visa_status_name"] = visaStatusName;
+    data["entry_type"] = entryType;
+    data["age_group"] = ageGroup;
+    data["processing_type"] = processingType;
+    data["passport_expiry_date"] = passportExpiryDate;
     return data;
   }
 }

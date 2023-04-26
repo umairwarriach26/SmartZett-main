@@ -4,14 +4,19 @@ import 'package:smartzett/models/price_model.dart';
 import '../../config/network/api_provider.dart';
 import '../../services/local_storage.dart';
 
-class BookingController extends GetxController with StateMixin<PriceModel> {
+class BookingController extends GetxController with StateMixin {
   final prefrences = Get.find<LocalStorageService>();
   var booking = BookingModel(
-    package: "single",
-    packageDuration: "1",
-    processDuration: "regular",
-    ageGroup: "adult",
-  ).obs;
+          package: "single",
+          packageDuration: "1",
+          processDuration: "regular",
+          ageGroup: "adult",
+          visaRequestId: "0")
+      .obs;
+
+  var price = PriceModel(
+          visaFee: "0", processingFee: "0", processingFeeVat: 0, totalFee: 0)
+      .obs;
 
   var currentStep = 0.obs;
 
@@ -65,7 +70,15 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
   void setPassport(String value) =>
       booking.update((val) => val!.passportPhoto = value);
 
+  void setVisaRequestID(String value) =>
+      booking.update((val) => val!.visaRequestId = value);
+
+  get visaFee => price.value.visaFee ?? "0";
+  get processingFee => price.value.processingFee ?? "0";
+  get processingFeeVat => price.value.processingFeeVat ?? 0;
   get countryCode => booking.value.countryCode ?? "";
+
+  get totalFee => price.value.totalFee ?? "";
 
   get nationality => booking.value.nationality ?? "";
 
@@ -99,7 +112,10 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
   get passportExpiry => booking.value.passportExpiry ?? "";
 
   get phoneNo => booking.value.phoneNo ?? "";
+
   get email => booking.value.email ?? "";
+
+  get visaRequetId => booking.value.visaRequestId ?? "";
 
   void goToForm(int index) => currentStep.value = index;
 
@@ -119,8 +135,10 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
 
       if (response["status"] == true) {
         // Set state to success
-        change(PriceModel.fromJson(response["data"]),
-            status: RxStatus.success());
+
+        price.value = PriceModel.fromJson(response["data"]);
+
+        change(null, status: RxStatus.success());
         // Get.snackbar("Success", "${response["message"]}");
         goToForm(2);
       } else {
@@ -154,11 +172,11 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
         "outside_uae_country_code": countryCode,
         "email": email,
         "user_id": prefrences.user!.userId,
+        "passport_expiry_date": passportExpiry,
+        "visa_request_id": visaRequetId,
         "profile_image": "data:image/png;base64,$profileImage",
-        "passport_image": "data:image/png;base64,$passportImage"
+        "passport_image": "data:image/png;base64,$passportImage",
       };
-
-      // print(data);
 
       var response = await ApiProvider()
           .postRequest(data, "visa_apply_api", prefrences.user!.token);
@@ -169,6 +187,7 @@ class BookingController extends GetxController with StateMixin<PriceModel> {
         change(null, status: RxStatus.success());
         Get.snackbar("Success", "${response["message"]}");
         // Get.offAndToNamed("/mybookings");
+        setVisaRequestID((response["insert_id"]).toString());
         goToForm(6);
       } else {
         // Set state to error

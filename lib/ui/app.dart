@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smartzett/controllers/status/status_binding.dart';
+import 'package:smartzett/controllers/mybooking/mybooking_binding.dart';
 import 'package:smartzett/ui/about_page.dart';
 import 'package:smartzett/ui/contact_page.dart';
 import 'package:smartzett/ui/mybookings_page.dart';

@@ -16,7 +16,7 @@ class BookingModel {
   // String? visaFee;
   // String? processingFee;
   // String? processingFeeVat;
-
+  String? visaRequestId;
   BookingModel(
       {this.countryCode,
       this.nationality,
@@ -31,5 +31,6 @@ class BookingModel {
       this.email,
       this.phoneNo,
       this.profiePhoto,
-      this.passportPhoto});
+      this.passportPhoto,
+      this.visaRequestId});
 }

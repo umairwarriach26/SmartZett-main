@@ -57,7 +57,7 @@ class ProfilePage extends GetView<LocalStorageService> {
                     child: ListView(
                   padding: const EdgeInsets.all(8.0),
                   children: [
-                    const Icon(Icons.person_2_sharp,
+                    const Icon(Icons.person,
                         size: 100, color: Color(0xff0d4e96)),
                     const SizedBox(height: 10.0),
                     TextFormField(

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smartzett/controllers/status/status_controller.dart';
 
-class StatusPage extends GetView<StatusController> {
+class StatusPage extends StatelessWidget {
   const StatusPage({super.key});
 
   Future<bool> _onPop() async {

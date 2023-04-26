@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ticket_widget/ticket_widget.dart';
 
-import '../controllers/status/status_controller.dart';
+import '../controllers/mybooking/mybooking_controller.dart';
 import 'widgets/error_widget.dart';
 import 'widgets/loading_widget.dart';
 
-class MyBookindsPage extends GetView<StatusController> {
+class MyBookindsPage extends GetView<MyBookingController> {
   const MyBookindsPage({super.key});
   Future<bool> _onPop() async {
     return false;
@@ -63,6 +62,8 @@ class MyBookindsPage extends GetView<StatusController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
                                             child: Column(
@@ -98,6 +99,8 @@ class MyBookindsPage extends GetView<StatusController> {
                                       ],
                                     ),
                                     Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
                                             child: Column(
@@ -133,6 +136,8 @@ class MyBookindsPage extends GetView<StatusController> {
                                       ],
                                     ),
                                     Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
                                             child: Column(
@@ -141,13 +146,48 @@ class MyBookindsPage extends GetView<StatusController> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            const Text("Type",
+                                            const Text("Processing Type",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Color(0xff0d4e96))),
-                                            Text(state[index].visaTypeId == "1"
-                                                ? "Single Entry"
-                                                : "Multi Entry")
+                                            Text(
+                                                "${state[index].processingType}")
+                                          ],
+                                        )),
+                                        const Spacer(),
+                                        Expanded(
+                                            child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text("Age Group",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xff0d4e96))),
+                                            Text("${state[index].ageGroup}")
+                                          ],
+                                        )),
+                                      ],
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                            child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text("Visa Type",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xff0d4e96))),
+                                            Text(
+                                                "${state[index].visaTypeId == "1" ? "30 Days" : "60 Days"} ${state[index].entryType} Entry")
                                           ],
                                         )),
                                         const Spacer(),
@@ -166,7 +206,42 @@ class MyBookindsPage extends GetView<StatusController> {
                                           ],
                                         )),
                                       ],
-                                    )
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                            child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text("Passport Expiry",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xff0d4e96))),
+                                            Text(
+                                                "${state[index].passportExpiryDate}")
+                                          ],
+                                        )),
+                                        const Spacer(),
+                                        Expanded(
+                                            child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            ElevatedButton(
+                                                onPressed: () {},
+                                                child:
+                                                    const Text("View Detail"))
+                                          ],
+                                        )),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ));

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smartzett/models/price_model.dart';
 import '../../controllers/booking/booking_controller.dart';
 
 class PackageDetail extends GetView<BookingController> {
-  const PackageDetail({super.key, required this.model});
-  final PriceModel model;
+  const PackageDetail({super.key});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -192,7 +190,7 @@ class PackageDetail extends GetView<BookingController> {
                             style: TextStyle(fontSize: 16.0),
                           ),
                           Text(
-                            "AED ${model.totalFee}",
+                            "AED ${controller.totalFee}",
                             style: const TextStyle(fontSize: 16.0),
                           ),
                         ],

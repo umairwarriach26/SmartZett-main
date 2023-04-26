@@ -1,14 +1,14 @@
 class PriceModel {
-  String visaFee;
-  String processingFee;
-  int processingFeeVat;
-  int totalFee;
+  String? visaFee;
+  String? processingFee;
+  int? processingFeeVat;
+  int? totalFee;
 
   PriceModel({
-    required this.visaFee,
-    required this.processingFee,
-    required this.processingFeeVat,
-    required this.totalFee,
+    this.visaFee,
+    this.processingFee,
+    this.processingFeeVat,
+    this.totalFee,
   });
 
   factory PriceModel.fromJson(Map<String, dynamic> json) => PriceModel(
