@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
-import 'package:smartzett/models/booking_model.dart';
-import 'package:smartzett/models/price_model.dart';
+import 'package:smartzett/models/booking_dto.dart';
+import 'package:smartzett/models/documents_dto.dart';
+import 'package:smartzett/models/price_dto.dart';
 import '../../config/network/api_provider.dart';
 import '../../services/local_storage.dart';
 
 class BookingController extends GetxController with StateMixin {
+  //**************************  finding the local stoarge service **************************
   final prefrences = Get.find<LocalStorageService>();
-  var booking = BookingModel(
+
+  //************************** Observeable Booking DTO class variable **************************
+  var booking = BookingDTO(
           package: "single",
           packageDuration: "1",
           processDuration: "regular",
@@ -14,111 +18,133 @@ class BookingController extends GetxController with StateMixin {
           visaRequestId: "0")
       .obs;
 
-  var price = PriceModel(
+//************************** Observeable Price DTO Class variable **************************
+  var price = PriceDTO(
           visaFee: "0", processingFee: "0", processingFeeVat: 0, totalFee: 0)
       .obs;
 
+  //************************** Observeable Documnets DTO Class variable **************************
+  var docs = DocumentsDTO().obs;
+
+//************************** Observeable Stepper INT variable **************************
   var currentStep = 0.obs;
 
+//************************ On Init Method of controller class* ****************************
   @override
   void onInit() {
     change(null, status: RxStatus.success());
     super.onInit();
   }
 
+// ************************** refresh view method from error to normal **************************
   void refreshView() {
     change(null, status: RxStatus.success());
   }
 
+//************************** SETTERS for Bookind DTO **************************
   void setCountryCode(String value) =>
       booking.update((val) => val!.countryCode = value);
-
   void setNationality(String value) =>
       booking.update((val) => val!.nationality = value);
 
   void setPackage(String value) =>
       booking.update((val) => val!.package = value);
-
   void setPackageDuration(String value) =>
       booking.update((val) => val!.packageDuration = value);
-
   void setProcessDuration(String value) =>
       booking.update((val) => val!.processDuration = value);
 
   void setAgeGroup(String value) =>
       booking.update((val) => val!.ageGroup = value);
-
   void setFullName(String value) =>
       booking.update((val) => val!.fullName = value);
-
   void setDOB(String value) => booking.update((val) => val!.dob = value);
-
   void setPassportNo(String value) =>
       booking.update((val) => val!.passportNo = value);
-
   void setPassportExpiry(String value) =>
       booking.update((val) => val!.passportExpiry = value);
-
   void setEmail(String value) => booking.update((val) => val!.email = value);
-
   void setPhoneNo(String value) =>
       booking.update((val) => val!.phoneNo = value);
-
   void setProfile(String value) =>
       booking.update((val) => val!.profiePhoto = value);
-
   void setPassport(String value) =>
       booking.update((val) => val!.passportPhoto = value);
 
   void setVisaRequestID(String value) =>
       booking.update((val) => val!.visaRequestId = value);
 
+  //************************** GETTERS for Booking DTO **************************
+  get countryCode => booking.value.countryCode ?? "";
+  get nationality => booking.value.nationality ?? "";
+  get package => booking.value.package ?? "";
+  get packageCapital => booking.value.package!.toUpperCase();
+  get packageDuration => booking.value.packageDuration ?? "";
+  get packageDurationCoverted =>
+      booking.value.packageDuration == "1" ? "30 Days" : "60 Days";
+  get processDuration => booking.value.processDuration ?? "";
+  get processDurationCapital => booking.value.processDuration!.toUpperCase();
+  get ageGroup => booking.value.ageGroup ?? "";
+  get ageGroupCapial => booking.value.ageGroup!.toUpperCase();
+  get fullName => booking.value.fullName ?? "";
+  get dob => booking.value.dob ?? "";
+  get passportNo => booking.value.passportNo ?? "";
+  get passportExpiry => booking.value.passportExpiry ?? "";
+  get phoneNo => booking.value.phoneNo ?? "";
+  get email => booking.value.email ?? "";
+  get visaRequetId => booking.value.visaRequestId ?? "";
+
+//************************** GETTERS for PRICE DTO **************************
   get visaFee => price.value.visaFee ?? "0";
   get processingFee => price.value.processingFee ?? "0";
   get processingFeeVat => price.value.processingFeeVat ?? 0;
-  get countryCode => booking.value.countryCode ?? "";
+  get totalFee => price.value.totalFee ?? 0;
 
-  get totalFee => price.value.totalFee ?? "";
+//************************** SETTERS for Documnets DTO **************************
 
-  get nationality => booking.value.nationality ?? "";
+  void setPassportImage(SingleFile value) =>
+      docs.update((val) => val!.passportImage = value);
+  void setPassportProfile(SingleFile value) =>
+      docs.update((val) => val!.passportProfileImage = value);
+  void setNationalID(SingleFile value) =>
+      docs.update((val) => val!.nationalID = value);
+  void setRelativePassport(SingleFile value) =>
+      docs.update((val) => val!.relativePassportDoc = value);
+  void setRelativeVisa(SingleFile value) =>
+      docs.update((val) => val!.realtiveVisaDoc = value);
+  void setAllPassportPages(List<SingleFile> value) =>
+      docs.update((val) => val!.allPassportPages = value);
+  void setAllStatementPages(List<SingleFile> value) =>
+      docs.update((val) => val!.allStatementPages = value);
+  void setAllSuppliments(List<SingleFile> value) =>
+      docs.update((val) => val!.supplimentDocuments = value);
+//************************** Remove from Documnets DTO **************************
+  void removePassportPages(SingleFile value) =>
+      docs.update((val) => val!.allPassportPages!.remove(value));
+  void removeStatementPages(SingleFile value) =>
+      docs.update((val) => val!.allStatementPages!.remove(value));
+  void removeSuppliments(SingleFile value) =>
+      docs.update((val) => val!.supplimentDocuments!.remove(value));
 
-  get package => booking.value.package ?? "";
+//************************** GETTERS for Documnets DTO **************************
 
-  get packageCapital => booking.value.package!.toUpperCase();
+  String get passportImageString => docs.value.passportImage!.path ?? "";
+  String get passportProfileImageString =>
+      docs.value.passportProfileImage!.path ?? "";
+  String get nationalIDString => docs.value.nationalID!.path ?? "";
+  SingleFile get passportImage => docs.value.passportImage!;
+  SingleFile get passportProfileImage => docs.value.passportProfileImage!;
+  SingleFile get nationalID => docs.value.nationalID!;
+  SingleFile get relativePassport => docs.value.relativePassportDoc!;
+  SingleFile get relativeVisa => docs.value.realtiveVisaDoc!;
+  List<SingleFile> get allPassportPages => docs.value.allPassportPages ?? [];
+  List<SingleFile> get allStatementPages => docs.value.allStatementPages ?? [];
+  List<SingleFile> get allSupplimnets => docs.value.supplimentDocuments ?? [];
 
-  get packageDuration => booking.value.packageDuration ?? "";
-
-  get packageDurationCoverted =>
-      booking.value.packageDuration == "1" ? "30 Days" : "60 Days";
-
-  get processDuration => booking.value.processDuration ?? "";
-
-  get processDurationCapital => booking.value.processDuration!.toUpperCase();
-
-  get ageGroup => booking.value.ageGroup ?? "";
-
-  get ageGroupCapial => booking.value.ageGroup!.toUpperCase();
-
-  get profileImage => booking.value.profiePhoto ?? "";
-
-  get passportImage => booking.value.passportPhoto ?? "";
-
-  get fullName => booking.value.fullName ?? "";
-
-  get dob => booking.value.dob ?? "";
-
-  get passportNo => booking.value.passportNo ?? "";
-
-  get passportExpiry => booking.value.passportExpiry ?? "";
-
-  get phoneNo => booking.value.phoneNo ?? "";
-
-  get email => booking.value.email ?? "";
-
-  get visaRequetId => booking.value.visaRequestId ?? "";
-
+//************************** Method to change current form Stepper **************************
   void goToForm(int index) => currentStep.value = index;
 
+//************************** Method to get updated price based on selection filter **************************
   void getUpdatedPrice() async {
     try {
       // Set state to loading
@@ -136,7 +162,7 @@ class BookingController extends GetxController with StateMixin {
       if (response["status"] == true) {
         // Set state to success
 
-        price.value = PriceModel.fromJson(response["data"]);
+        price.value = PriceDTO.fromJson(response["data"]);
 
         change(null, status: RxStatus.success());
         // Get.snackbar("Success", "${response["message"]}");
@@ -153,6 +179,7 @@ class BookingController extends GetxController with StateMixin {
     }
   }
 
+//************************** Method to create or update visa details **************************
   void bookVisa() async {
     try {
       // Set state to loading
@@ -174,7 +201,7 @@ class BookingController extends GetxController with StateMixin {
         "user_id": prefrences.user!.userId,
         "passport_expiry_date": passportExpiry,
         "visa_request_id": visaRequetId,
-        "profile_image": "data:image/png;base64,$profileImage",
+        "profile_image": "data:image/png;base64,$passportProfileImage",
         "passport_image": "data:image/png;base64,$passportImage",
       };
 

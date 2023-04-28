@@ -21,7 +21,7 @@ class PaymentForm extends GetView<BookingController> {
         ListTile(
           title: const Text("UAE"),
           subtitle: Text(
-              "${controller.packageDuration == "1" ? "30 Days" : "60 Days"} ${controller.package.toString().toUpperCase()} Entry Visa"),
+              "${controller.packageDurationCoverted} (${controller.packageCapital} Entry Visa)"),
         ),
         ListTile(
           title: const Text("Visa Fee"),
@@ -41,7 +41,7 @@ class PaymentForm extends GetView<BookingController> {
         ListTile(
           title: const Text("Grand Total"),
           subtitle: const Text("Total Amount AED"),
-          trailing: Text("AED ${controller.processingFeeVat}"),
+          trailing: Text("AED ${controller.totalFee}"),
         ),
         SizedBox(
           height: 50.0,

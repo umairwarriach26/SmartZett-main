@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../services/local_storage.dart';
@@ -55,7 +56,7 @@ class HomePage extends GetView<LocalStorageService> {
                         child: HomeTile(
                             title: "UAE TOURIST VISA",
                             icon: const Icon(
-                              Icons.playlist_add_outlined,
+                              FontAwesomeIcons.passport,
                               size: 60.0,
                               color: Colors.white,
                             ),
@@ -66,7 +67,7 @@ class HomePage extends GetView<LocalStorageService> {
                         child: HomeTile(
                             title: "VISA STATUS",
                             icon: const Icon(
-                              Icons.mobile_friendly,
+                              FontAwesomeIcons.checkDouble,
                               size: 60.0,
                               color: Colors.white,
                             ),
@@ -115,17 +116,16 @@ class HomePage extends GetView<LocalStorageService> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.home_rounded,
-                        color: Color(0xff0d4e96)),
+                    icon: const Icon(Icons.dashboard, color: Color(0xff0d4e96)),
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: const Icon(Icons.playlist_add_outlined,
+                    icon: const Icon(FontAwesomeIcons.passport,
                         color: Color(0xff808285)),
                     onPressed: () => Get.toNamed("/booking"),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.mobile_friendly,
+                    icon: const Icon(FontAwesomeIcons.checkDouble,
                         color: Color(0xff808285)),
                     onPressed: () => Get.offAndToNamed("/status"),
                   ),

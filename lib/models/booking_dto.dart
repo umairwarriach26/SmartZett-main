@@ -1,4 +1,4 @@
-class BookingModel {
+class BookingDTO {
   String? countryCode;
   String? nationality;
   String? package;
@@ -13,11 +13,9 @@ class BookingModel {
   String? phoneNo;
   String? profiePhoto;
   String? passportPhoto;
-  // String? visaFee;
-  // String? processingFee;
-  // String? processingFeeVat;
   String? visaRequestId;
-  BookingModel(
+
+  BookingDTO(
       {this.countryCode,
       this.nationality,
       this.package,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smartzett/ui/widgets/error_widget.dart';
+import 'package:smartzett/ui/views/error_widget.dart';
 import '../controllers/auth/auth_controller.dart';
-import 'widgets/loading_widget.dart';
+import 'views/loading_widget.dart';
 
 class LoginPage extends GetView<AuthController> {
   LoginPage({super.key});

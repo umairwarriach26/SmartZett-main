@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smartzett/ui/widgets/loading_widget.dart';
-import 'package:smartzett/ui/widgets/package_detail.dart';
-import 'package:smartzett/ui/widgets/package_selection.dart';
-import 'package:smartzett/ui/widgets/user_detail.dart';
+import 'package:smartzett/ui/views/loading_widget.dart';
+import 'package:smartzett/ui/views/package_detail.dart';
+import 'package:smartzett/ui/views/package_selection.dart';
+import 'package:smartzett/ui/views/user_detail.dart';
 import '../controllers/booking/booking_controller.dart';
-import 'widgets/documnet_upload.dart';
-import 'widgets/error_widget.dart';
-import 'widgets/nationality_selection.dart';
-import 'widgets/payment_form.dart';
-import 'widgets/review_form.dart';
+import 'views/documnet_upload.dart';
+import 'views/error_widget.dart';
+import 'views/nationality_selection.dart';
+import 'views/payment_form.dart';
+import 'views/review_form.dart';
 
 class BookingPage extends GetView<BookingController> {
   const BookingPage({super.key});

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/mybooking/mybooking_controller.dart';
-import 'widgets/error_widget.dart';
-import 'widgets/loading_widget.dart';
+import 'views/error_widget.dart';
+import 'views/loading_widget.dart';
 
 class MyBookindsPage extends GetView<MyBookingController> {
   const MyBookindsPage({super.key});

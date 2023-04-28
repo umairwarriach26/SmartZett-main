@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class StatusPage extends StatelessWidget {
@@ -42,17 +43,16 @@ class StatusPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.home_outlined,
-                        color: Color(0xff808285)),
+                    icon: const Icon(Icons.dashboard, color: Color(0xff808285)),
                     onPressed: () => Get.offAndToNamed("/home"),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.playlist_add_outlined,
+                    icon: const Icon(FontAwesomeIcons.passport,
                         color: Color(0xff808285)),
                     onPressed: () => Get.toNamed("/booking"),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.mobile_friendly,
+                    icon: const Icon(FontAwesomeIcons.checkDouble,
                         color: Color(0xff0d4e96)),
                     onPressed: () {},
                   ),
