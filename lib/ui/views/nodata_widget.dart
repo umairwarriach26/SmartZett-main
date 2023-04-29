@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ErrorView extends StatelessWidget {
-  const ErrorView({
+class NoDataWidget extends StatelessWidget {
+  const NoDataWidget({
     required this.errorMessage,
-    required this.onPressed,
     super.key,
   });
-
   final String errorMessage;
-  final VoidCallback onPressed;
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -21,9 +17,9 @@ class ErrorView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Icon(
-              Icons.error,
-              color: Color(0xffed1c24),
-              size: 130.0,
+              Icons.hourglass_empty,
+              color: Color(0xff808285),
+              size: 150.0,
             ),
             const SizedBox(height: 20.0),
             Text(
@@ -32,12 +28,6 @@ class ErrorView extends StatelessWidget {
               style:
                   const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
             ),
-            const SizedBox(height: 20.0),
-            SizedBox(
-              height: 50.0,
-              child: ElevatedButton(
-                  onPressed: onPressed, child: const Text("Retry")),
-            )
           ],
         ),
       ),

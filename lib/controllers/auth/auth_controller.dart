@@ -5,7 +5,7 @@ import '../../services/local_storage.dart';
 
 class AuthController extends GetxController with StateMixin {
   final prefrences = Get.find<LocalStorageService>();
-  var obscured = false.obs;
+  var obscured = true.obs;
 
   get showPassword => obscured.value;
 

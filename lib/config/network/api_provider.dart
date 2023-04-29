@@ -6,7 +6,6 @@ import 'api_exceptions.dart';
 
 class ApiProvider {
   final String _baseUrl = "https://b2c.24x7smart.com/index.php/visa_api/";
-
   _setHeaders(String token) => {
         "Content-type": "application/json",
         "Accept": "application/json",

@@ -3,9 +3,11 @@ import '../../config/network/api_provider.dart';
 import '../../models/mybooking_model.dart';
 import '../../services/local_storage.dart';
 
-class MyBookingController extends GetxController
-    with StateMixin<List<MyBookingModel>> {
+class MyBookingController extends GetxController with StateMixin {
   final prefrences = Get.find<LocalStorageService>();
+  List<MyBookingModel> list = [];
+
+  List<MyBookingModel> get bookingList => list;
 
   @override
   void onInit() {
@@ -22,7 +24,7 @@ class MyBookingController extends GetxController
   void getVisasList() async {
     try {
       // Set state to loading
-      change(null, status: RxStatus.loading());
+      change(false, status: RxStatus.loading());
       var data = {
         "user_id": prefrences.user!.userId,
       };
@@ -33,19 +35,23 @@ class MyBookingController extends GetxController
       if (response["status"] == true) {
         // Set state to success
         var body = response["data"] as List;
-        List<MyBookingModel> list =
-            body.map((tagJson) => MyBookingModel.fromJson(tagJson)).toList();
+        list = body.map((tagJson) => MyBookingModel.fromJson(tagJson)).toList();
+        change(true, status: RxStatus.success());
 
-        change(list, status: RxStatus.success());
         // Get.snackbar("Success", "${response["message"]}");
       } else {
         // Set state to error
-        change(null, status: RxStatus.error(("${response["message"]}")));
+        if (response["code"] == 200) {
+          change(false, status: RxStatus.empty());
+        } else {
+          change(false, status: RxStatus.error(("${response["message"]}")));
+        }
+
         Get.snackbar("Error", "${response["message"]}");
       }
     } catch (error) {
       // Set state to error
-      change(null, status: RxStatus.error("$error"));
+      change(false, status: RxStatus.error("$error"));
       Get.snackbar("Error", "$error");
     }
   }

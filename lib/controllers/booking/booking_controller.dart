@@ -97,15 +97,15 @@ class BookingController extends GetxController with StateMixin {
 
 //************************** SETTERS for Documnets DTO **************************
 
-  void setPassportImage(SingleFile value) =>
+  void setPassportImage(List<SingleFile> value) =>
       docs.update((val) => val!.passportImage = value);
-  void setPassportProfile(SingleFile value) =>
+  void setPassportProfile(List<SingleFile> value) =>
       docs.update((val) => val!.passportProfileImage = value);
-  void setNationalID(SingleFile value) =>
+  void setNationalID(List<SingleFile> value) =>
       docs.update((val) => val!.nationalID = value);
-  void setRelativePassport(SingleFile value) =>
+  void setRelativePassport(List<SingleFile> value) =>
       docs.update((val) => val!.relativePassportDoc = value);
-  void setRelativeVisa(SingleFile value) =>
+  void setRelativeVisa(List<SingleFile> value) =>
       docs.update((val) => val!.realtiveVisaDoc = value);
   void setAllPassportPages(List<SingleFile> value) =>
       docs.update((val) => val!.allPassportPages = value);
@@ -120,18 +120,19 @@ class BookingController extends GetxController with StateMixin {
       docs.update((val) => val!.allStatementPages!.remove(value));
   void removeSuppliments(SingleFile value) =>
       docs.update((val) => val!.supplimentDocuments!.remove(value));
+  void removePassportImage() =>
+      docs.update((val) => val!.passportImage!.clear());
+  void removeProfileImage() =>
+      docs.update((val) => val!.passportProfileImage!.clear());
+  void removeNationalId() => docs.update((val) => val!.nationalID!.clear());
 
 //************************** GETTERS for Documnets DTO **************************
 
-  String get passportImageString => docs.value.passportImage!.path ?? "";
-  String get passportProfileImageString =>
-      docs.value.passportProfileImage!.path ?? "";
-  String get nationalIDString => docs.value.nationalID!.path ?? "";
-  SingleFile get passportImage => docs.value.passportImage!;
-  SingleFile get passportProfileImage => docs.value.passportProfileImage!;
-  SingleFile get nationalID => docs.value.nationalID!;
-  SingleFile get relativePassport => docs.value.relativePassportDoc!;
-  SingleFile get relativeVisa => docs.value.realtiveVisaDoc!;
+  List<SingleFile> get passportImage => docs.value.passportImage!;
+  List<SingleFile> get profileImage => docs.value.passportProfileImage!;
+  List<SingleFile> get nationalID => docs.value.nationalID!;
+  List<SingleFile> get relativePassport => docs.value.relativePassportDoc!;
+  List<SingleFile> get relativeVisa => docs.value.realtiveVisaDoc!;
   List<SingleFile> get allPassportPages => docs.value.allPassportPages ?? [];
   List<SingleFile> get allStatementPages => docs.value.allStatementPages ?? [];
   List<SingleFile> get allSupplimnets => docs.value.supplimentDocuments ?? [];
@@ -148,7 +149,8 @@ class BookingController extends GetxController with StateMixin {
         "entry_type": package,
         "visa_type_id": packageDuration,
         "visa_processing_duration": processDuration,
-        "age_group": ageGroup
+        "age_group": ageGroup,
+        "user_id": prefrences.user!.userId
       };
 
       var response = await ApiProvider().postRequest(
@@ -196,7 +198,7 @@ class BookingController extends GetxController with StateMixin {
         "user_id": prefrences.user!.userId,
         "passport_expiry_date": passportExpiry,
         "visa_request_id": visaRequetId,
-        "profile_image": "data:image/png;base64,$passportProfileImage",
+        "profile_image": "data:image/png;base64,$profileImage",
         "passport_image": "data:image/png;base64,$passportImage",
       };
 

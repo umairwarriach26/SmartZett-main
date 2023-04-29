@@ -109,26 +109,32 @@ class FileMenu extends GetView<BookingController> {
               path: file.path));
           controller.setAllStatementPages(fileList);
         } else if (destination == 3) {
-          controller.setPassportProfile(SingleFile(
+          List<SingleFile> fileList = controller.profileImage;
+          fileList.add(SingleFile(
               prefix: "data:application/pdf;base64",
               base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
+          controller.setPassportProfile(fileList);
         } else if (destination == 4) {
-          controller.setNationalID(SingleFile(
+          List<SingleFile> fileList = controller.nationalID;
+          fileList.add(SingleFile(
               prefix: "data:application/pdf;base64",
               base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
+          controller.setNationalID(fileList);
         } else if (destination == 5) {
-          controller.setPassportImage(SingleFile(
+          List<SingleFile> fileList = controller.passportImage;
+          fileList.add(SingleFile(
               prefix: "data:application/pdf;base64",
               base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
+          controller.setPassportImage(fileList);
         } else if (destination == 6) {
           List<SingleFile> fileList = controller.allSupplimnets;
           fileList.add(SingleFile(
@@ -249,26 +255,32 @@ class FileMenu extends GetView<BookingController> {
             path: pickedFile.path));
         controller.setAllStatementPages(fileList);
       } else if (destination == 3) {
-        controller.setPassportProfile(SingleFile(
+        List<SingleFile> fileList = controller.profileImage;
+        fileList.add(SingleFile(
             prefix: "data:image/png;base64",
             base64File: base64Image,
             fileName: pickedFile.name,
             type: "JPG",
             path: pickedFile.path));
+        controller.setPassportProfile(fileList);
       } else if (destination == 4) {
-        controller.setNationalID(SingleFile(
+        List<SingleFile> fileList = controller.nationalID;
+        fileList.add(SingleFile(
             prefix: "data:image/png;base64",
             base64File: base64Image,
             fileName: pickedFile.name,
             type: "JPG",
             path: pickedFile.path));
+        controller.setNationalID(fileList);
       } else if (destination == 5) {
-        controller.setPassportImage(SingleFile(
+        List<SingleFile> fileList = controller.passportImage;
+        fileList.add(SingleFile(
             prefix: "data:image/png;base64",
             base64File: base64Image,
             fileName: pickedFile.name,
             type: "JPG",
             path: pickedFile.path));
+        controller.setPassportImage(fileList);
       } else if (destination == 6) {
         List<SingleFile> fileList = controller.allSupplimnets;
         fileList.add(SingleFile(

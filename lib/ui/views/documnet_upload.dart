@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:smartzett/models/documents_dto.dart';
 import 'file_menu.dart';
 import '../../controllers/booking/booking_controller.dart';
 
@@ -23,6 +24,42 @@ class DocumnetUploadForm extends GetView<BookingController> {
               textAlign: TextAlign.start,
               style: TextStyle(fontSize: 14.0),
             ),
+            const SizedBox(height: 10.0),
+            SizedBox(
+              height: 50.0,
+              child: OutlinedButton(
+                onPressed: () =>
+                    Get.bottomSheet(const FileMenu(destination: 5)),
+                child: const Text("Upload Passport Image"),
+              ),
+            ),
+            // SingleDocs(
+            //     onTap: () => controller.removePassportImage(),
+            //     list: controller.passportImage),
+            const SizedBox(height: 10.0),
+            SizedBox(
+              height: 50.0,
+              child: OutlinedButton(
+                onPressed: () =>
+                    Get.bottomSheet(const FileMenu(destination: 3)),
+                child: const Text("Upload Profile Image"),
+              ),
+            ),
+            // SingleDocs(
+            //     onTap: () => controller.removeProfileImage(),
+            //     list: controller.profileImage),
+            const SizedBox(height: 10.0),
+            SizedBox(
+              height: 50.0,
+              child: OutlinedButton(
+                onPressed: () =>
+                    Get.bottomSheet(const FileMenu(destination: 4)),
+                child: const Text("Upload National ID"),
+              ),
+            ),
+            // SingleDocs(
+            //     onTap: () => controller.removeNationalId(),
+            //     list: controller.nationalID),
             const SizedBox(height: 10.0),
             SizedBox(
               height: 100.0,
@@ -89,46 +126,7 @@ class DocumnetUploadForm extends GetView<BookingController> {
                               controller.allStatementPages[index]),
                           icon: const Icon(Icons.delete)));
                 }),
-            ListTile(
-              // leading: controller.passportProfileImage.fileName == null
-              //     ? const SizedBox()
-              //     : Image.file(
-              //         File("${controller.passportProfileImage.path}"),
-              //         height: 60,
-              //         width: 100,
-              //         fit: BoxFit.cover,
-              //       ),
-              title:
-                  const Text("Profile Photo", style: TextStyle(fontSize: 16.0)),
-              onTap: () => Get.bottomSheet(const FileMenu(destination: 3)),
-            ),
             const SizedBox(height: 10.0),
-            ListTile(
-              // leading: controller.nationalID.fileName == null
-              //     ? const SizedBox()
-              //     : Image.file(
-              //         File("${controller.nationalID.path}"),
-              //         height: 60,
-              //         width: 100,
-              //         fit: BoxFit.cover,
-              //       ),
-              title:
-                  const Text("National ID", style: TextStyle(fontSize: 16.0)),
-              onTap: () => Get.bottomSheet(const FileMenu(destination: 4)),
-            ),
-            ListTile(
-              // leading: controller.passportImage.fileName == ""
-              //     ? const SizedBox()
-              //     : Image.file(
-              //         File("${controller.passportImage.path}"),
-              //         height: 60,
-              //         width: 100,
-              //         fit: BoxFit.cover,
-              //       ),
-              title: const Text("Passport Photo",
-                  style: TextStyle(fontSize: 16.0)),
-              onTap: () => Get.bottomSheet(const FileMenu(destination: 5)),
-            ),
             const Text(
               "Suppliment Documnets",
               textAlign: TextAlign.start,
@@ -188,5 +186,34 @@ class DocumnetUploadForm extends GetView<BookingController> {
             )
           ],
         ));
+  }
+}
+
+// ignore: must_be_immutable
+class SingleDocs extends StatelessWidget {
+  SingleDocs({super.key, required this.onTap, required this.list});
+  VoidCallback onTap;
+  List<SingleFile> list;
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: list.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+              leading: list[index].type == "PDF"
+                  ? const FaIcon(FontAwesomeIcons.filePdf)
+                  : Image.file(
+                      File("${list[index].path}"),
+                      height: 60,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ),
+              title: Text("${list[index].fileName}",
+                  style: const TextStyle(fontSize: 16.0)),
+              trailing:
+                  IconButton(onPressed: onTap, icon: const Icon(Icons.delete)));
+        });
   }
 }

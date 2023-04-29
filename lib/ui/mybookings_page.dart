@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartzett/ui/views/nodata_widget.dart';
 
 import '../controllers/mybooking/mybooking_controller.dart';
 import 'views/error_widget.dart';
@@ -48,7 +49,7 @@ class MyBookindsPage extends GetView<MyBookingController> {
                 child: controller.obx(
                     (state) => ListView.builder(
                         physics: const BouncingScrollPhysics(),
-                        itemCount: state!.length,
+                        itemCount: controller.bookingList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Card(
                               margin:
@@ -77,7 +78,7 @@ class MyBookindsPage extends GetView<MyBookingController> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Color(0xff0d4e96))),
                                             Text(
-                                                "${state[index].referenceName}")
+                                                "${controller.bookingList[index].referenceName}")
                                           ],
                                         )),
                                         const Spacer(),
@@ -93,7 +94,7 @@ class MyBookindsPage extends GetView<MyBookingController> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Color(0xff0d4e96))),
                                             Text(
-                                                "${state[index].visaStatusName}")
+                                                "${controller.bookingList[index].visaStatusName}")
                                           ],
                                         )),
                                       ],
@@ -114,7 +115,7 @@ class MyBookindsPage extends GetView<MyBookingController> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Color(0xff0d4e96))),
                                             Text(
-                                                "${state[index].fullEnglishName}")
+                                                "${controller.bookingList[index].fullEnglishName}")
                                           ],
                                         )),
                                         const Spacer(),
@@ -130,7 +131,7 @@ class MyBookindsPage extends GetView<MyBookingController> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Color(0xff0d4e96))),
                                             Text(
-                                                "${state[index].outsideUaeResidenceCountryTelephone}")
+                                                "${controller.bookingList[index].outsideUaeResidenceCountryTelephone}")
                                           ],
                                         )),
                                       ],
@@ -151,7 +152,7 @@ class MyBookindsPage extends GetView<MyBookingController> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Color(0xff0d4e96))),
                                             Text(
-                                                "${state[index].processingType}")
+                                                "${controller.bookingList[index].processingType}")
                                           ],
                                         )),
                                         const Spacer(),
@@ -166,7 +167,8 @@ class MyBookindsPage extends GetView<MyBookingController> {
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Color(0xff0d4e96))),
-                                            Text("${state[index].ageGroup}")
+                                            Text(
+                                                "${controller.bookingList[index].ageGroup}")
                                           ],
                                         )),
                                       ],
@@ -187,7 +189,7 @@ class MyBookindsPage extends GetView<MyBookingController> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Color(0xff0d4e96))),
                                             Text(
-                                                "${state[index].visaTypeId == "1" ? "30 Days" : "60 Days"} ${state[index].entryType} Entry")
+                                                "${controller.bookingList[index].visaTypeId == "1" ? "30 Days" : "60 Days"} ${controller.bookingList[index].entryType} Entry")
                                           ],
                                         )),
                                         const Spacer(),
@@ -202,7 +204,8 @@ class MyBookindsPage extends GetView<MyBookingController> {
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Color(0xff0d4e96))),
-                                            Text("${state[index].totalFee}")
+                                            Text(
+                                                "${controller.bookingList[index].totalFee}")
                                           ],
                                         )),
                                       ],
@@ -223,7 +226,7 @@ class MyBookindsPage extends GetView<MyBookingController> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Color(0xff0d4e96))),
                                             Text(
-                                                "${state[index].passportExpiryDate}")
+                                                "${controller.bookingList[index].passportExpiryDate}")
                                           ],
                                         )),
                                         const Spacer(),
@@ -250,7 +253,9 @@ class MyBookindsPage extends GetView<MyBookingController> {
                         const LoadingWidget(message: "Loading..."), // optional
                     onError: (error) => ErrorView(
                         errorMessage: "$error",
-                        onPressed: () => controller.refreshView())),
+                        onPressed: () => controller.refreshView()),
+                    onEmpty:
+                        const NoDataWidget(errorMessage: "No record found")),
               )
             ])),
       ),
