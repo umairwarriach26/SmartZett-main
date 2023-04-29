@@ -52,21 +52,45 @@ class LoginPage extends GetView<AuthController> {
                             },
                           ),
                           const SizedBox(height: 10.0),
-                          TextFormField(
-                            controller: _passwordController,
-                            textInputAction: TextInputAction.done,
-                            keyboardType: TextInputType.text,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                                labelText: "Password",
-                                hintText: 'Enter Password'),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Enter password';
-                              }
-                              return null;
-                            },
-                          ),
+                          Obx(() => Column(
+                                children: [
+                                  TextFormField(
+                                    controller: _passwordController,
+                                    textInputAction: TextInputAction.done,
+                                    keyboardType: TextInputType.text,
+                                    obscureText: controller.showPassword,
+                                    decoration: const InputDecoration(
+                                        labelText: "Password",
+                                        hintText: 'Enter Password'),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Enter password';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      TextButton(
+                                          child: Text(
+                                            controller.showPassword
+                                                ? "(Show)"
+                                                : "(Hide)",
+                                            style: const TextStyle(
+                                              color: Color(0xffed1c24),
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            controller.showPassword
+                                                ? controller.obscured(false)
+                                                : controller.obscured(true);
+                                          }),
+                                    ],
+                                  ),
+                                ],
+                              )),
                           const SizedBox(height: 10.0),
                           SizedBox(
                               height: 50.0,

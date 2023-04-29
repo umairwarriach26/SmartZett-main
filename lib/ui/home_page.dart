@@ -107,6 +107,7 @@ class HomePage extends GetView<LocalStorageService> {
                 )
               ]),
         ),
+
         bottomNavigationBar: BottomAppBar(
             shape: const CircularNotchedRectangle(),
             child: Container(

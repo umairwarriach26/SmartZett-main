@@ -27,13 +27,15 @@ class DocumnetUploadForm extends GetView<BookingController> {
             SizedBox(
               height: 100.0,
               child: OutlinedButton(
-                onPressed: () => Get.bottomSheet(FileMenu(destination: 1)),
+                onPressed: () =>
+                    Get.bottomSheet(const FileMenu(destination: 1)),
                 child: const Text("Upload all pages of your passport +"),
               ),
             ),
             const SizedBox(height: 10.0),
             ListView.builder(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.allPassportPages.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
@@ -58,13 +60,15 @@ class DocumnetUploadForm extends GetView<BookingController> {
             SizedBox(
               height: 100.0,
               child: OutlinedButton(
-                onPressed: () => Get.bottomSheet(FileMenu(destination: 2)),
+                onPressed: () =>
+                    Get.bottomSheet(const FileMenu(destination: 2)),
                 child: const Text("Upload all pages of your bank statement+"),
               ),
             ),
             const SizedBox(height: 10.0),
             ListView.builder(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.allStatementPages.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
@@ -86,46 +90,44 @@ class DocumnetUploadForm extends GetView<BookingController> {
                           icon: const Icon(Icons.delete)));
                 }),
             ListTile(
+              // leading: controller.passportProfileImage.fileName == null
+              //     ? const SizedBox()
+              //     : Image.file(
+              //         File("${controller.passportProfileImage.path}"),
+              //         height: 60,
+              //         width: 100,
+              //         fit: BoxFit.cover,
+              //       ),
               title:
                   const Text("Profile Photo", style: TextStyle(fontSize: 16.0)),
-              // trailing: controller.passportProfileImage == ""
-              //     ? const Icon(Icons.add)
-              //     : IconButton(
-              //         onPressed: () {},
-              //         icon: const Icon(
-              //           Icons.delete,
-              //           color: Colors.red,
-              //         )),
-              onTap: () => Get.bottomSheet(FileMenu(destination: 3)),
+              onTap: () => Get.bottomSheet(const FileMenu(destination: 3)),
             ),
             const SizedBox(height: 10.0),
             ListTile(
+              // leading: controller.nationalID.fileName == null
+              //     ? const SizedBox()
+              //     : Image.file(
+              //         File("${controller.nationalID.path}"),
+              //         height: 60,
+              //         width: 100,
+              //         fit: BoxFit.cover,
+              //       ),
               title:
                   const Text("National ID", style: TextStyle(fontSize: 16.0)),
-              // trailing: controller.passportProfileImage == ""
-              //     ? const Icon(Icons.add)
-              //     : IconButton(
-              //         onPressed: () {},
-              //         icon: const Icon(
-              //           Icons.delete,
-              //           color: Colors.red,
-              //         )),
-              onTap: () => Get.bottomSheet(FileMenu(destination: 4)),
+              onTap: () => Get.bottomSheet(const FileMenu(destination: 4)),
             ),
             ListTile(
+              // leading: controller.passportImage.fileName == ""
+              //     ? const SizedBox()
+              //     : Image.file(
+              //         File("${controller.passportImage.path}"),
+              //         height: 60,
+              //         width: 100,
+              //         fit: BoxFit.cover,
+              //       ),
               title: const Text("Passport Photo",
                   style: TextStyle(fontSize: 16.0)),
-              // trailing: controller.passportImage == ""
-              //     ? const Icon(
-              //         Icons.add,
-              //       )
-              //     : IconButton(
-              //         onPressed: () {},
-              //         icon: const Icon(
-              //           Icons.delete,
-              //           color: Colors.red,
-              //         )),
-              onTap: () => Get.bottomSheet(FileMenu(destination: 5)),
+              onTap: () => Get.bottomSheet(const FileMenu(destination: 5)),
             ),
             const Text(
               "Suppliment Documnets",
@@ -141,13 +143,15 @@ class DocumnetUploadForm extends GetView<BookingController> {
             SizedBox(
               height: 100.0,
               child: OutlinedButton(
-                onPressed: () => Get.bottomSheet(FileMenu(destination: 6)),
+                onPressed: () =>
+                    Get.bottomSheet(const FileMenu(destination: 6)),
                 child: const Text("Upload Documents +"),
               ),
             ),
             const SizedBox(height: 10.0),
             ListView.builder(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.allSupplimnets.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(

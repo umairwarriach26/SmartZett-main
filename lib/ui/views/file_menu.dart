@@ -1,16 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smartzett/controllers/booking/booking_controller.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:smartzett/models/documents_dto.dart';
 
-class FileMenu extends StatelessWidget {
-  FileMenu({super.key, required this.destination});
+import '../../controllers/booking/booking_controller.dart';
+import '../../models/documents_dto.dart';
+
+class FileMenu extends GetView<BookingController> {
+  const FileMenu({super.key, required this.destination});
   final int destination;
-  final controller = Get.find<BookingController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,11 +30,11 @@ class FileMenu extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(
-              Icons.file_copy,
+              Icons.picture_as_pdf_rounded,
               color: Color(0xff0d4e96),
             ),
             title: const Text(
-              "File PDF",
+              "Choose pdf file",
               style: TextStyle(color: Color(0xff0d4e96)),
             ),
             onTap: () {
@@ -48,12 +49,12 @@ class FileMenu extends StatelessWidget {
               color: Color(0xff0d4e96),
             ),
             title: const Text(
-              "Pick Image From Gallery",
+              "Choose from gallery",
               style: TextStyle(color: Color(0xff0d4e96)),
             ),
             onTap: () {
               Get.back();
-              _pickImage();
+              pickImage(1);
             },
           ),
           const Divider(thickness: 0.5),
@@ -63,12 +64,12 @@ class FileMenu extends StatelessWidget {
               color: Color(0xff0d4e96),
             ),
             title: const Text(
-              "Take Camera Photo",
+              "Capture from camera",
               style: TextStyle(color: Color(0xff0d4e96)),
             ),
             onTap: () {
               Get.back();
-              pickImageCamera();
+              pickImage(2);
             },
           ),
         ],
@@ -83,13 +84,17 @@ class FileMenu extends StatelessWidget {
         type: FileType.custom,
         allowedExtensions: ['pdf'],
       );
+
       if (result != null) {
         PlatformFile file = result.files.first;
+        final File temp = File(file.path!);
+        String? base64Image;
+        base64Image = await fileToBase642(temp);
         if (destination == 1) {
           List<SingleFile> fileList = controller.allPassportPages;
           fileList.add(SingleFile(
-              prefix: "",
-              base64File: "",
+              prefix: "data:application/pdf;base64",
+              base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
@@ -97,38 +102,38 @@ class FileMenu extends StatelessWidget {
         } else if (destination == 2) {
           List<SingleFile> fileList = controller.allStatementPages;
           fileList.add(SingleFile(
-              prefix: "",
-              base64File: "",
+              prefix: "data:application/pdf;base64",
+              base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
           controller.setAllStatementPages(fileList);
         } else if (destination == 3) {
           controller.setPassportProfile(SingleFile(
-              prefix: "",
-              base64File: "",
+              prefix: "data:application/pdf;base64",
+              base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
         } else if (destination == 4) {
           controller.setNationalID(SingleFile(
-              prefix: "",
-              base64File: "",
+              prefix: "data:application/pdf;base64",
+              base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
         } else if (destination == 5) {
           controller.setPassportImage(SingleFile(
-              prefix: "",
-              base64File: "",
+              prefix: "data:application/pdf;base64",
+              base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
         } else if (destination == 6) {
           List<SingleFile> fileList = controller.allSupplimnets;
           fileList.add(SingleFile(
-              prefix: "",
-              base64File: "",
+              prefix: "data:application/pdf;base64",
+              base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
@@ -144,66 +149,135 @@ class FileMenu extends StatelessWidget {
     }
   }
 
-  Future<void> _pickImage() async {
+  // Future<void> _pickImage() async {
+  //   try {
+  //     FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //       allowMultiple: false,
+  //       type: FileType.custom,
+  //       allowedExtensions: ['jpg'],
+  //     );
+  //     if (result != null) {
+  //       PlatformFile file = result.files.first;
+  //       String? base64Image;
+  //       base64Image = await fileToBase642(file.bytes!);
+  //       if (destination == 1) {
+  //         List<SingleFile> fileList = controller.allPassportPages;
+  //         fileList.add(SingleFile(
+  //             prefix: "",
+  //             base64File: base64Image,
+  //             fileName: file.name,
+  //             type: "JPG",
+  //             path: file.path));
+  //         controller.setAllPassportPages(fileList);
+  //       } else if (destination == 2) {
+  //         List<SingleFile> fileList = controller.allStatementPages;
+  //         fileList.add(SingleFile(
+  //             prefix: "",
+  //             base64File: base64Image,
+  //             fileName: file.name,
+  //             type: "JPG",
+  //             path: file.path));
+  //         controller.setAllStatementPages(fileList);
+  //       } else if (destination == 3) {
+  //         controller.setPassportProfile(SingleFile(
+  //             prefix: "",
+  //             base64File: base64Image,
+  //             fileName: file.name,
+  //             type: "JPG",
+  //             path: file.path));
+  //       } else if (destination == 4) {
+  //         controller.setNationalID(SingleFile(
+  //             prefix: "",
+  //             base64File: base64Image,
+  //             fileName: file.name,
+  //             type: "JPG",
+  //             path: file.path));
+  //       } else if (destination == 5) {
+  //         controller.setPassportImage(SingleFile(
+  //             prefix: "",
+  //             base64File: base64Image,
+  //             fileName: file.name,
+  //             type: "JPG",
+  //             path: file.path));
+  //       } else if (destination == 6) {
+  //         List<SingleFile> fileList = controller.allSupplimnets;
+  //         fileList.add(SingleFile(
+  //             prefix: "",
+  //             base64File: base64Image,
+  //             fileName: file.name,
+  //             type: "JPG",
+  //             path: file.path));
+  //         controller.setAllSuppliments(fileList);
+  //       } else {
+  //         Get.snackbar("Action", "User close picker without file selection");
+  //       }
+  //     }
+  //   } on PlatformException catch (e) {
+  //     Get.snackbar("Error", "${e.message}");
+  //   } catch (e) {
+  //     Get.snackbar("Error", "$e");
+  //   }
+  // }
+
+  Future<void> pickImage(int type) async {
+    final ImagePicker picker = ImagePicker();
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        allowMultiple: false,
-        type: FileType.custom,
-        allowedExtensions: ['jpg'],
+      final XFile? pickedFile = await picker.pickImage(
+        source: type == 1 ? ImageSource.gallery : ImageSource.camera,
+        maxWidth: 512,
+        maxHeight: 512,
+        imageQuality: 10,
       );
-      if (result != null) {
-        PlatformFile file = result.files.first;
-        if (destination == 1) {
-          List<SingleFile> fileList = controller.allPassportPages;
-          fileList.add(SingleFile(
-              prefix: "",
-              base64File: "",
-              fileName: file.name,
-              type: "JPG",
-              path: file.path));
-          controller.setAllPassportPages(fileList);
-        } else if (destination == 2) {
-          List<SingleFile> fileList = controller.allStatementPages;
-          fileList.add(SingleFile(
-              prefix: "",
-              base64File: "",
-              fileName: file.name,
-              type: "JPG",
-              path: file.path));
-          controller.setAllStatementPages(fileList);
-        } else if (destination == 3) {
-          controller.setPassportProfile(SingleFile(
-              prefix: "",
-              base64File: "",
-              fileName: file.name,
-              type: "JPG",
-              path: file.path));
-        } else if (destination == 4) {
-          controller.setNationalID(SingleFile(
-              prefix: "",
-              base64File: "",
-              fileName: file.name,
-              type: "JPG",
-              path: file.path));
-        } else if (destination == 5) {
-          controller.setPassportImage(SingleFile(
-              prefix: "",
-              base64File: "",
-              fileName: file.name,
-              type: "JPG",
-              path: file.path));
-        } else if (destination == 6) {
-          List<SingleFile> fileList = controller.allSupplimnets;
-          fileList.add(SingleFile(
-              prefix: "",
-              base64File: "",
-              fileName: file.name,
-              type: "JPG",
-              path: file.path));
-          controller.setAllSuppliments(fileList);
-        } else {
-          Get.snackbar("Action", "User close picker without file selection");
-        }
+      String? base64Image;
+      base64Image = await fileToBase64(pickedFile!);
+      if (destination == 1) {
+        List<SingleFile> fileList = controller.allPassportPages;
+        fileList.add(SingleFile(
+            prefix: "data:image/png;base64",
+            base64File: base64Image,
+            fileName: pickedFile.name,
+            type: "JPG",
+            path: pickedFile.path));
+        controller.setAllPassportPages(fileList);
+      } else if (destination == 2) {
+        List<SingleFile> fileList = controller.allStatementPages;
+        fileList.add(SingleFile(
+            prefix: "data:image/png;base64",
+            base64File: base64Image,
+            fileName: pickedFile.name,
+            type: "JPG",
+            path: pickedFile.path));
+        controller.setAllStatementPages(fileList);
+      } else if (destination == 3) {
+        controller.setPassportProfile(SingleFile(
+            prefix: "data:image/png;base64",
+            base64File: base64Image,
+            fileName: pickedFile.name,
+            type: "JPG",
+            path: pickedFile.path));
+      } else if (destination == 4) {
+        controller.setNationalID(SingleFile(
+            prefix: "data:image/png;base64",
+            base64File: base64Image,
+            fileName: pickedFile.name,
+            type: "JPG",
+            path: pickedFile.path));
+      } else if (destination == 5) {
+        controller.setPassportImage(SingleFile(
+            prefix: "data:image/png;base64",
+            base64File: base64Image,
+            fileName: pickedFile.name,
+            type: "JPG",
+            path: pickedFile.path));
+      } else if (destination == 6) {
+        List<SingleFile> fileList = controller.allSupplimnets;
+        fileList.add(SingleFile(
+            prefix: "data:image/png;base64",
+            base64File: base64Image,
+            fileName: pickedFile.name,
+            type: "JPG",
+            path: pickedFile.path));
+        controller.setAllSuppliments(fileList);
       }
     } on PlatformException catch (e) {
       Get.snackbar("Error", "${e.message}");
@@ -212,26 +286,12 @@ class FileMenu extends StatelessWidget {
     }
   }
 
-  Future<void> pickImageCamera() async {
-    final ImagePicker picker = ImagePicker();
-    try {
-      final XFile? pickedFile = await picker.pickImage(
-        source: ImageSource.camera,
-        maxWidth: 512,
-        maxHeight: 512,
-        imageQuality: 10,
-      );
-      String? base64Image;
-      base64Image = await imageToBase64(pickedFile!);
-      controller.setPassport(base64Image);
-    } on PlatformException catch (e) {
-      Get.snackbar("Error", "${e.message}");
-    } catch (e) {
-      Get.snackbar("Error", "$e");
-    }
+  Future<String> fileToBase64(XFile file) async {
+    List<int> imageBytes = await file.readAsBytes();
+    return base64Encode(imageBytes);
   }
 
-  Future<String> imageToBase64(XFile file) async {
+  Future<String> fileToBase642(File file) async {
     List<int> imageBytes = await file.readAsBytes();
     return base64Encode(imageBytes);
   }

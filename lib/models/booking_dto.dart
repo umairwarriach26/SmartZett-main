@@ -11,8 +11,6 @@ class BookingDTO {
   String? passportExpiry;
   String? email;
   String? phoneNo;
-  String? profiePhoto;
-  String? passportPhoto;
   String? visaRequestId;
 
   BookingDTO(
@@ -28,7 +26,5 @@ class BookingDTO {
       this.passportExpiry,
       this.email,
       this.phoneNo,
-      this.profiePhoto,
-      this.passportPhoto,
       this.visaRequestId});
 }

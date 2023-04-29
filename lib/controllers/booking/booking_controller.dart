@@ -66,11 +66,6 @@ class BookingController extends GetxController with StateMixin {
   void setEmail(String value) => booking.update((val) => val!.email = value);
   void setPhoneNo(String value) =>
       booking.update((val) => val!.phoneNo = value);
-  void setProfile(String value) =>
-      booking.update((val) => val!.profiePhoto = value);
-  void setPassport(String value) =>
-      booking.update((val) => val!.passportPhoto = value);
-
   void setVisaRequestID(String value) =>
       booking.update((val) => val!.visaRequestId = value);
 
