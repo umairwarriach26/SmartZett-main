@@ -1,9 +1,9 @@
 class DocumentsDTO {
-  List<SingleFile>? passportImage;
-  List<SingleFile>? passportProfileImage;
-  List<SingleFile>? nationalID;
-  List<SingleFile>? relativePassportDoc;
-  List<SingleFile>? realtiveVisaDoc;
+  SingleFile? passportImage;
+  SingleFile? passportProfileImage;
+  SingleFile? nationalID;
+  SingleFile? relativePassportDoc;
+  SingleFile? realtiveVisaDoc;
   List<SingleFile>? allPassportPages;
   List<SingleFile>? allStatementPages;
   List<SingleFile>? supplimentDocuments;

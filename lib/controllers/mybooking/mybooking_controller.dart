@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import '../../config/network/api_provider.dart';
-import '../../models/mybooking_model.dart';
+import '../../data/models/mybooking_model.dart';
 import '../../services/local_storage.dart';
 
 class MyBookingController extends GetxController with StateMixin {

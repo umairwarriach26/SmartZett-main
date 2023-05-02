@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import '../../config/network/api_provider.dart';
-import '../../models/user_model.dart';
+import '../../data/user_model.dart';
 import '../../services/local_storage.dart';
 
 class AuthController extends GetxController with StateMixin {

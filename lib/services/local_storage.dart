@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/user_model.dart';
+import '../data/user_model.dart';
 
 enum _Key {
   user,

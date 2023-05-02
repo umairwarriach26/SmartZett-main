@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:smartzett/controllers/profile/profile_controller.dart';
 
-import '../services/local_storage.dart';
-
-class ProfilePage extends GetView<LocalStorageService> {
-  ProfilePage({super.key});
+class UpdateProfilePage extends GetView<ProfileController> {
+  UpdateProfilePage({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final _firstName = TextEditingController();
@@ -38,7 +36,7 @@ class ProfilePage extends GetView<LocalStorageService> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Text(
-                        "Profile",
+                        "Update Profile",
                         textAlign: TextAlign.start,
                         style:
                             TextStyle(color: Color(0xff808285), fontSize: 25.0),
@@ -91,27 +89,27 @@ class ProfilePage extends GetView<LocalStorageService> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 10.0),
-                    TextFormField(
-                      controller: _dob,
-                      keyboardType: TextInputType.datetime,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        labelText: "Date of Birth",
-                      ),
-                      readOnly: true,
-                      showCursor: false,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Select Date Of Birth';
-                        }
-                        return null;
-                      },
-                      onTap: () {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        _chooseDOB();
-                      },
-                    ),
+                    // const SizedBox(height: 10.0),
+                    // TextFormField(
+                    //   controller: _dob,
+                    //   keyboardType: TextInputType.datetime,
+                    //   textInputAction: TextInputAction.next,
+                    //   decoration: const InputDecoration(
+                    //     labelText: "Date of Birth",
+                    //   ),
+                    //   readOnly: true,
+                    //   showCursor: false,
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Select Date Of Birth';
+                    //     }
+                    //     return null;
+                    //   },
+                    //   onTap: () {
+                    //     FocusManager.instance.primaryFocus?.unfocus();
+                    //     _chooseDOB();
+                    //   },
+                    // ),
                     const SizedBox(height: 10.0),
                     TextFormField(
                       controller: _email,
@@ -166,31 +164,31 @@ class ProfilePage extends GetView<LocalStorageService> {
   }
 
   _setFormValues() {
-    _firstName.text = controller.user!.firstName ?? "";
-    _lastName.text = controller.user!.lastName ?? "";
-    _email.text = controller.user!.email ?? "";
-    _phone.text = controller.user!.phone ?? "";
+    _firstName.text = controller.firstName ?? "";
+    _lastName.text = controller.lastName ?? "";
+    _email.text = controller.email ?? "";
+    _phone.text = controller.phone ?? "";
   }
 
-  _chooseDOB() async {
-    DateTime? pickedDate = await showDatePicker(
-      context: Get.context!,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1970),
-      lastDate: DateTime.now(),
-      //initialEntryMode: DatePickerEntryMode.input,
-      //initialDatePickerMode: DatePickerMode.year,
-      helpText: 'Select DOB',
-      cancelText: 'Close',
-      confirmText: 'Confirm',
-      errorFormatText: 'Enter valid date',
-      errorInvalidText: 'Enter valid date range',
-      fieldLabelText: 'DOB',
-      fieldHintText: 'Year/Month/day',
-      //selectableDayPredicate: disableDate
-    );
-    if (pickedDate != null) {
-      _dob.text = DateFormat("yyyy-MM-dd").format(pickedDate).toString();
-    }
-  }
+  // _chooseDOB() async {
+  //   DateTime? pickedDate = await showDatePicker(
+  //     context: Get.context!,
+  //     initialDate: DateTime.now(),
+  //     firstDate: DateTime(1970),
+  //     lastDate: DateTime.now(),
+  //     //initialEntryMode: DatePickerEntryMode.input,
+  //     //initialDatePickerMode: DatePickerMode.year,
+  //     helpText: 'Select DOB',
+  //     cancelText: 'Close',
+  //     confirmText: 'Confirm',
+  //     errorFormatText: 'Enter valid date',
+  //     errorInvalidText: 'Enter valid date range',
+  //     fieldLabelText: 'DOB',
+  //     fieldHintText: 'Year/Month/day',
+  //     //selectableDayPredicate: disableDate
+  //   );
+  //   if (pickedDate != null) {
+  //     _dob.text = DateFormat("yyyy-MM-dd").format(pickedDate).toString();
+  //   }
+  // }
 }

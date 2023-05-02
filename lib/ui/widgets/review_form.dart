@@ -82,14 +82,37 @@ class ReviewForm extends GetView<BookingController> {
                   trailing: IconButton(
                       onPressed: () => controller.currentStep(3),
                       icon: const Icon(Icons.edit))),
-              const ListTile(
-                title: Text("Profile_Photo.png",
-                    style: TextStyle(color: Color(0xff0d4e96))),
+              ListTile(
+                title: const Text(
+                  "Copy of Passport ",
+                  style: TextStyle(color: Color(0xff0d4e96)),
+                ),
+                subtitle: Text("${controller.passportImage.fileName}"),
               ),
-              const ListTile(
-                title: Text("Passport_Photo.png",
-                    style: TextStyle(color: Color(0xff0d4e96))),
-              ),
+              ListTile(
+                  title: const Text(
+                    "Passport Profile ",
+                    style: TextStyle(color: Color(0xff0d4e96)),
+                  ),
+                  subtitle: Text("${controller.profileImage.fileName}")),
+              ListTile(
+                  title: const Text(
+                    "National Id",
+                    style: TextStyle(color: Color(0xff0d4e96)),
+                  ),
+                  subtitle: Text("${controller.nationalID.fileName}")),
+              ListTile(
+                  title: const Text(
+                    "Relative Passport ",
+                    style: TextStyle(color: Color(0xff0d4e96)),
+                  ),
+                  subtitle: Text("${controller.relativePassport.fileName}")),
+              ListTile(
+                  title: const Text(
+                    "Relative Visa ",
+                    style: TextStyle(color: Color(0xff0d4e96)),
+                  ),
+                  subtitle: Text("${controller.relativeVisa.fileName}")),
             ],
           ),
         ),

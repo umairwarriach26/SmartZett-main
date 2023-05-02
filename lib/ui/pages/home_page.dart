@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../services/local_storage.dart';
+import '../../services/local_storage.dart';
 
 class HomePage extends GetView<LocalStorageService> {
   const HomePage({super.key});

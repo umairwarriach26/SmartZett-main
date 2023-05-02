@@ -7,11 +7,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 
 import '../../controllers/booking/booking_controller.dart';
-import '../../models/documents_dto.dart';
+import '../../data/dtos/documents_dto.dart';
 
 class FileMenu extends GetView<BookingController> {
   const FileMenu({super.key, required this.destination});
-  final int destination;
+  final String destination;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -90,7 +90,7 @@ class FileMenu extends GetView<BookingController> {
         final File temp = File(file.path!);
         String? base64Image;
         base64Image = await fileToBase642(temp);
-        if (destination == 1) {
+        if (destination == "allpassport") {
           List<SingleFile> fileList = controller.allPassportPages;
           fileList.add(SingleFile(
               prefix: "data:application/pdf;base64",
@@ -99,7 +99,7 @@ class FileMenu extends GetView<BookingController> {
               type: "PDF",
               path: file.path));
           controller.setAllPassportPages(fileList);
-        } else if (destination == 2) {
+        } else if (destination == "allstatement") {
           List<SingleFile> fileList = controller.allStatementPages;
           fileList.add(SingleFile(
               prefix: "data:application/pdf;base64",
@@ -108,34 +108,42 @@ class FileMenu extends GetView<BookingController> {
               type: "PDF",
               path: file.path));
           controller.setAllStatementPages(fileList);
-        } else if (destination == 3) {
-          List<SingleFile> fileList = controller.profileImage;
-          fileList.add(SingleFile(
+        } else if (destination == "profile") {
+          controller.setPassportProfile(SingleFile(
               prefix: "data:application/pdf;base64",
               base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
-          controller.setPassportProfile(fileList);
-        } else if (destination == 4) {
-          List<SingleFile> fileList = controller.nationalID;
-          fileList.add(SingleFile(
+        } else if (destination == "nationalid") {
+          controller.setNationalID(SingleFile(
               prefix: "data:application/pdf;base64",
               base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
-          controller.setNationalID(fileList);
-        } else if (destination == 5) {
-          List<SingleFile> fileList = controller.passportImage;
-          fileList.add(SingleFile(
+        } else if (destination == "passport") {
+          controller.setPassportImage(SingleFile(
               prefix: "data:application/pdf;base64",
               base64File: base64Image,
               fileName: file.name,
               type: "PDF",
               path: file.path));
-          controller.setPassportImage(fileList);
-        } else if (destination == 6) {
+        } else if (destination == "relativepassport") {
+          controller.setRelativePassport(SingleFile(
+              prefix: "data:application/pdf;base64",
+              base64File: base64Image,
+              fileName: file.name,
+              type: "PDF",
+              path: file.path));
+        } else if (destination == "relativevisa") {
+          controller.setRelativeVisa(SingleFile(
+              prefix: "data:application/pdf;base64",
+              base64File: base64Image,
+              fileName: file.name,
+              type: "PDF",
+              path: file.path));
+        } else if (destination == "additional") {
           List<SingleFile> fileList = controller.allSupplimnets;
           fileList.add(SingleFile(
               prefix: "data:application/pdf;base64",
@@ -236,7 +244,7 @@ class FileMenu extends GetView<BookingController> {
       );
       String? base64Image;
       base64Image = await fileToBase64(pickedFile!);
-      if (destination == 1) {
+      if (destination == "allpassport") {
         List<SingleFile> fileList = controller.allPassportPages;
         fileList.add(SingleFile(
             prefix: "data:image/png;base64",
@@ -245,7 +253,7 @@ class FileMenu extends GetView<BookingController> {
             type: "JPG",
             path: pickedFile.path));
         controller.setAllPassportPages(fileList);
-      } else if (destination == 2) {
+      } else if (destination == "allstatement") {
         List<SingleFile> fileList = controller.allStatementPages;
         fileList.add(SingleFile(
             prefix: "data:image/png;base64",
@@ -254,34 +262,42 @@ class FileMenu extends GetView<BookingController> {
             type: "JPG",
             path: pickedFile.path));
         controller.setAllStatementPages(fileList);
-      } else if (destination == 3) {
-        List<SingleFile> fileList = controller.profileImage;
-        fileList.add(SingleFile(
+      } else if (destination == "profile") {
+        controller.setPassportProfile(SingleFile(
             prefix: "data:image/png;base64",
             base64File: base64Image,
             fileName: pickedFile.name,
             type: "JPG",
             path: pickedFile.path));
-        controller.setPassportProfile(fileList);
-      } else if (destination == 4) {
-        List<SingleFile> fileList = controller.nationalID;
-        fileList.add(SingleFile(
+      } else if (destination == "nationalid") {
+        controller.setNationalID(SingleFile(
             prefix: "data:image/png;base64",
             base64File: base64Image,
             fileName: pickedFile.name,
             type: "JPG",
             path: pickedFile.path));
-        controller.setNationalID(fileList);
-      } else if (destination == 5) {
-        List<SingleFile> fileList = controller.passportImage;
-        fileList.add(SingleFile(
+      } else if (destination == "passport") {
+        controller.setPassportImage(SingleFile(
             prefix: "data:image/png;base64",
             base64File: base64Image,
             fileName: pickedFile.name,
             type: "JPG",
             path: pickedFile.path));
-        controller.setPassportImage(fileList);
-      } else if (destination == 6) {
+      } else if (destination == "relativepassport") {
+        controller.setRelativePassport(SingleFile(
+            prefix: "data:image/png;base64",
+            base64File: base64Image,
+            fileName: pickedFile.name,
+            type: "JPG",
+            path: pickedFile.path));
+      } else if (destination == "relativevisa") {
+        controller.setRelativeVisa(SingleFile(
+            prefix: "data:image/png;base64",
+            base64File: base64Image,
+            fileName: pickedFile.name,
+            type: "JPG",
+            path: pickedFile.path));
+      } else if (destination == "additional") {
         List<SingleFile> fileList = controller.allSupplimnets;
         fileList.add(SingleFile(
             prefix: "data:image/png;base64",
@@ -307,4 +323,18 @@ class FileMenu extends GetView<BookingController> {
     List<int> imageBytes = await file.readAsBytes();
     return base64Encode(imageBytes);
   }
+
+  // void _selectPhoto() async {
+  //   const MethodChannel shareMethodChannel =
+  //       MethodChannel('photo_picker_method_channel');
+  //   String? result;
+  //   try {
+  //     result = await shareMethodChannel
+  //         .invokeMethod('pickMedia', <String, String>{'file_type': "image"});
+
+  //     print(result);
+  //   } on PlatformException catch (e) {
+  //     result = e.message;
+  //   }
+  // }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smartzett/ui/views/nodata_widget.dart';
+import 'package:smartzett/ui/widgets/nodata_widget.dart';
 
-import '../controllers/mybooking/mybooking_controller.dart';
-import 'views/error_widget.dart';
-import 'views/loading_widget.dart';
+import '../../controllers/mybooking/mybooking_controller.dart';
+import '../widgets/error_widget.dart';
+import '../widgets/loading_widget.dart';
 
 class MyBookindsPage extends GetView<MyBookingController> {
   const MyBookindsPage({super.key});
@@ -22,8 +22,7 @@ class MyBookindsPage extends GetView<MyBookingController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-              Container(
-                color: Colors.white,
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

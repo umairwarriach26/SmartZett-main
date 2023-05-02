@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:smartzett/controllers/mybooking/mybooking_binding.dart';
-import 'package:smartzett/ui/about_page.dart';
-import 'package:smartzett/ui/contact_page.dart';
-import 'package:smartzett/ui/mybookings_page.dart';
-import 'package:smartzett/ui/privacy_page.dart';
-import 'package:smartzett/ui/profile_page.dart';
-import 'package:smartzett/ui/terms_page.dart';
-import 'booking_page.dart';
-import 'menu_page.dart';
-import 'splash_page.dart';
-import 'login_page.dart';
-import 'signup_page.dart';
-import 'home_page.dart';
-import 'status_page.dart';
+import 'package:smartzett/ui/pages/update_profile.dart';
+
 import '../controllers/auth/auth_binding.dart';
 import '../controllers/booking/booking_binding.dart';
 import '../config/app/app_theme.dart';
+import '../controllers/mybooking/mybooking_binding.dart';
+import '../controllers/profile/profile_binding.dart';
+
+import 'pages/about_page.dart';
+import 'pages/booking_page.dart';
+import 'pages/contact_page.dart';
+import 'pages/home_page.dart';
+import 'pages/login_page.dart';
+import 'pages/menu_page.dart';
+import 'pages/mybookings_page.dart';
+import 'pages/privacy_page.dart';
+import 'pages/profile_page.dart';
+import 'pages/signup_page.dart';
+import 'pages/splash_page.dart';
+import 'pages/status_page.dart';
+import 'pages/terms_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -52,10 +56,19 @@ class MyApp extends StatelessWidget {
             transition: Transition.downToUp,
             transitionDuration: const Duration(milliseconds: 350)),
         GetPage(
-            name: "/profile",
-            page: () => ProfilePage(),
-            transition: Transition.downToUp,
-            transitionDuration: const Duration(milliseconds: 350)),
+          name: "/profile",
+          page: () => const ProfilePage(),
+          transition: Transition.downToUp,
+          transitionDuration: const Duration(milliseconds: 350),
+          binding: ProfileBinding(),
+        ),
+        GetPage(
+          name: "/updateprofile",
+          page: () => UpdateProfilePage(),
+          transition: Transition.downToUp,
+          transitionDuration: const Duration(milliseconds: 350),
+          binding: ProfileBinding(),
+        ),
         GetPage(
             name: "/about",
             page: () => const AboutPage(),
@@ -94,7 +107,7 @@ class MyApp extends StatelessWidget {
           page: () => const MyBookindsPage(),
           transition: Transition.fadeIn,
           transitionDuration: const Duration(milliseconds: 350),
-          binding: StatusBinding(),
+          binding: MyBookingBinding(),
         ),
       ],
     );

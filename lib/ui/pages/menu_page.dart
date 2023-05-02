@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../services/local_storage.dart';
-import 'views/loading_dialog.dart';
+import '../../services/local_storage.dart';
+import '../widgets/loading_dialog.dart';
 
 class MenuPage extends GetView<LocalStorageService> {
   MenuPage({super.key});
