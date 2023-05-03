@@ -60,6 +60,11 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+//     packagingOptions {
+//     exclude 'META-INF/license.txt'
+//     exclude 'META-INF/notice.txt'
+// }
 }
 
 flutter {
@@ -70,4 +75,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation("androidx.activity:activity-ktx:1.6.1")
     implementation "androidx.fragment:fragment-ktx:1.5.4"
+    // implementation project(":telrlibrary-release")
+    // implementation 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+    // implementation ('org.simpleframework:simple-xml:2.7.1',{
+    //    exclude group:'stax', module:'stax'
+    //    exclude group:'stax', module:'stax-api'
+    //    exclude group:'xpp3', module:'xpp3'
+    // })
+
 }

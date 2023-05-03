@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:smartzett/ui/widgets/loading_dialog.dart';
 
 import '../../config/network/api_provider.dart';
 import '../../data/user_model.dart';
@@ -48,6 +49,42 @@ class ProfileController extends GetxController with StateMixin<User> {
     } catch (error) {
       // Set state to error
       change(null, status: RxStatus.error("$error"));
+      Get.snackbar("Error", "$error");
+    }
+  }
+
+  void updateUserProfile(
+      String firstName, String lastName, String email, String phone) async {
+    try {
+      // Set state to loading
+      Get.dialog(const LoadingDialog(message: "Updating..."));
+      var data = {
+        "first_name": firstName.trim(),
+        "last_name": lastName.trim(),
+        "email": email.trim(),
+        "phone": phone.trim(),
+        "user_id": prefrences.user!.userId,
+      };
+
+      var response = await ApiProvider()
+          .postRequest(data, "user_profile_update", prefrences.user!.token);
+
+      if (response["status"] == true) {
+        // Set state to success
+        var body = response["data"];
+        userModel.update((val) {
+          val = User.fromJson(body);
+        });
+        Get.back();
+        Get.snackbar("Success", "${response["message"]}");
+      } else {
+        // Set state to error
+        Get.back();
+        Get.snackbar("Error", "${response["message"]}");
+      }
+    } catch (error) {
+      // Set state to error
+      Get.back();
       Get.snackbar("Error", "$error");
     }
   }

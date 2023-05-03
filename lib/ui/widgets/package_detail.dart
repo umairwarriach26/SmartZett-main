@@ -199,7 +199,7 @@ class PackageDetail extends GetView<BookingController> {
                       SizedBox(
                         height: 50.0,
                         child: ElevatedButton(
-                            onPressed: () => controller.currentStep(3),
+                            onPressed: () => controller.getDocumentFilter(),
                             child: const Text("Continue")),
                       )
                     ],

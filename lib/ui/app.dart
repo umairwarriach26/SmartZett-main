@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartzett/controllers/status/status_binding.dart';
 import 'package:smartzett/ui/pages/update_profile.dart';
 
 import '../controllers/auth/auth_binding.dart';
@@ -91,9 +92,10 @@ class MyApp extends StatelessWidget {
             transitionDuration: const Duration(milliseconds: 350)),
         GetPage(
           name: "/status",
-          page: () => const StatusPage(),
+          page: () => StatusPage(),
           transition: Transition.rightToLeft,
           transitionDuration: const Duration(milliseconds: 350),
+          binding: StatusBinding(),
         ),
         GetPage(
           name: "/booking",

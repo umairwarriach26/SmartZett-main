@@ -28,7 +28,16 @@ class BookingController extends GetxController with StateMixin {
   var docs = DocumentsDTO().obs;
 
   //************************** Observeable Documnets DTO Class variable **************************
-  var docFilter = DocumentFilter(passportImage: true, profileImage: true).obs;
+  var docFilter = DocumentFilter(
+          passportImage: true,
+          profileImage: true,
+          nationalId: false,
+          relativePassport: false,
+          relativeVisa: false,
+          allPassportPages: false,
+          allBankStatementPages: false,
+          additionalDocuments: true)
+      .obs;
 
 //************************** Observeable Stepper INT variable **************************
   var currentStep = 0.obs;
@@ -159,15 +168,14 @@ class BookingController extends GetxController with StateMixin {
 
   //************************** GETTERS for Documnets DTO **************************
 
-  bool get showPassport => docFilter.value.passportImage ?? false;
-  bool get showProfile => docFilter.value.profileImage ?? false;
-  bool get showNationalId => docFilter.value.nationalId ?? false;
-  bool get showRelativePassport => docFilter.value.relativePassport ?? false;
-  bool get showRelativeVisa => docFilter.value.relativeVisa ?? false;
-  bool get showAllPassport => docFilter.value.allPassportPages ?? false;
-  bool get showAllBankStatement =>
-      docFilter.value.allBankStatementPages ?? false;
-  bool get showAdditionalDocs => docFilter.value.additionalDocuments ?? false;
+  bool get showPassport => docFilter.value.passportImage!;
+  bool get showProfile => docFilter.value.profileImage!;
+  bool get showNationalId => docFilter.value.nationalId!;
+  bool get showRelativePassport => docFilter.value.relativePassport!;
+  bool get showRelativeVisa => docFilter.value.relativeVisa!;
+  bool get showAllPassport => docFilter.value.allPassportPages!;
+  bool get showAllBankStatement => docFilter.value.allBankStatementPages!;
+  bool get showAdditionalDocs => docFilter.value.additionalDocuments!;
 
 //************************** Method to change current form Stepper **************************
   void goToForm(int index) => currentStep.value = index;
@@ -196,6 +204,36 @@ class BookingController extends GetxController with StateMixin {
         change(null, status: RxStatus.success());
         // Get.snackbar("Success", "${response["message"]}");
         goToForm(2);
+      } else {
+        // Set state to error
+        change(null, status: RxStatus.error(("${response["message"]}")));
+        Get.snackbar("Error", "${response["message"]}");
+      }
+    } catch (error) {
+      // Set state to error
+      change(null, status: RxStatus.error("$error"));
+      Get.snackbar("Error", "$error");
+    }
+  }
+
+//************************** Method to get updated document based on country selection **************************
+  void getDocumentFilter() async {
+    try {
+      // Set state to loading
+      change(null, status: RxStatus.loading());
+      var data = {
+        "country_code": countryCode,
+        "user_id": prefrences.user!.userId
+      };
+
+      var response = await ApiProvider()
+          .postRequest(data, "country_based_docs", prefrences.user!.token);
+
+      if (response["status"] == true) {
+        // Set state to success
+        docFilter.value = DocumentFilter.fromJson(response["data"]);
+        change(null, status: RxStatus.success());
+        goToForm(3);
       } else {
         // Set state to error
         change(null, status: RxStatus.error(("${response["message"]}")));

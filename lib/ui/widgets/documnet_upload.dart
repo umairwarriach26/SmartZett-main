@@ -142,6 +142,8 @@ class DocumnetUploadForm extends GetView<BookingController> {
             const SizedBox(height: 10.0),
             controller.showAllPassport
                 ? Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       SizedBox(
                         height: 100.0,

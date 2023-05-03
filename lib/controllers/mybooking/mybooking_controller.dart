@@ -37,8 +37,6 @@ class MyBookingController extends GetxController with StateMixin {
         var body = response["data"] as List;
         list = body.map((tagJson) => MyBookingModel.fromJson(tagJson)).toList();
         change(true, status: RxStatus.success());
-
-        // Get.snackbar("Success", "${response["message"]}");
       } else {
         // Set state to error
         if (response["code"] == 200) {
@@ -46,8 +44,6 @@ class MyBookingController extends GetxController with StateMixin {
         } else {
           change(false, status: RxStatus.error(("${response["message"]}")));
         }
-
-        Get.snackbar("Error", "${response["message"]}");
       }
     } catch (error) {
       // Set state to error

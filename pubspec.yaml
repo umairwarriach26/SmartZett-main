@@ -51,6 +51,7 @@ dependencies:
   url_launcher: ^6.1.10
   # ticket_widget: ^0.0.1
   file_picker: ^5.2.11
+  # telr_payment_gateway: ^0.0.5
 
 dev_dependencies:
   flutter_test:

@@ -59,7 +59,7 @@ class PaymentForm extends GetView<BookingController> {
           host: 'secure.telr.com',
           path: 'https://secure.telr.com/gateway/order.json',
           queryParameters: {
-            'ivp_method': 'create',
+            'ivp_method': 'check',
             'ivp_store': '18140',
             "ivp_authkey": "TELR_PAYMENT_KEY",
             "ivp_amount": "1",
@@ -76,4 +76,41 @@ class PaymentForm extends GetView<BookingController> {
       Get.snackbar("Error", "${e.message}");
     }
   }
+
+  // Future<void> _doPayment() async {
+  //   String message;
+  //   // Platform messages may fail, so we use a try/catch PlatformException.
+  //   // We also handle the message potentially returning null.
+  //   try {
+  //     message = await TelrPaymentGateway.callTelRForTransaction(
+  //           store_id: "25798",
+  //           key: "Nbsw5^mDR5@3m9Nc",
+  //           amount: "20",
+  //           app_install_id: "123456",
+  //           app_name: "TelR",
+  //           app_user_id: "12345",
+  //           app_version: "1.0.0",
+  //           sdk_version: "123",
+  //           mode: "1",
+  //           tran_type: "sale",
+  //           tran_cart_id: "1003",
+  //           desc: "First Transaction",
+  //           tran_lang: "EN",
+  //           tran_currency: "AED",
+  //           bill_city: "Dubai",
+  //           bill_country: "AE",
+  //           bill_region: "Dubai",
+  //           bill_address: "SIT GTower",
+  //           bill_first_name: "Deep",
+  //           bill_last_name: "Amin",
+  //           bill_title: "Mr",
+  //           bill_email: "deep@innovuratech.com",
+  //           bill_phone: "528636596",
+  //         ) ??
+  //         'Unknown Message';
+  //   } on PlatformException {
+  //     message = 'Failed to get Message.';
+  //   }
+  //   print("Clicked Message == $message");
+  // }
 }
